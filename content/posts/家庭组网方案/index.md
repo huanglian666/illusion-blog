@@ -6,6 +6,7 @@ tags: ["家庭网络", "实践记录"]
 categories: ["生活与兴趣"]
 weight: 10
 description: "- 中心外置： 弱电箱仅作为“中转站”，将路由器的“大脑”置于客房桌面，方便操作与散热。"
+image: "https://t.alcy.cc/ycy?random=9"
 ---
 
 ### 1. 核心设计思想

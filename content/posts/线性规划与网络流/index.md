@@ -5,6 +5,7 @@ tags: ["算法", "线性规划与网络流", "算法思想"]
 categories: ["算法"]
 weight: 26
 description: "在线性约束条件下，求一个线性目标函数的最大值或最小值："
+image: "https://t.alcy.cc/ycy?random=14"
 ---
 
 ## 1. 线性规划（Linear Programming）

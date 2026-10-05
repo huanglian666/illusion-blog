@@ -5,6 +5,7 @@ tags: ["算法", "分支限界法", "算法思想"]
 categories: ["算法"]
 weight: 24
 description: "分支限界法在问题的解空间树上搜索，但与回溯法的深度优先不同，它采用广度优先或最小耗费（最大效益）优先的策略扩展结点。每一个活结点只有一次机会成为扩展结点：一旦成…"
+image: "https://t.alcy.cc/ycy?random=5"
 ---
 
 # 分支限界法（Branch and Bound）

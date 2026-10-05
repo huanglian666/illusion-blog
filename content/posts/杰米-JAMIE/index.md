@@ -6,6 +6,7 @@ tags: ["街霸", "角色资料"]
 categories: ["生活与兴趣"]
 weight: 22
 description: "杰米自称是唐人街的“麻烦解决者”。他极度崇拜《街霸》历史上的传奇双子阴（Yun）和阳（Yang） ，其格斗风格融合了醉拳和霹雳舞，极具视觉冲击力。"
+image: "https://t.alcy.cc/ycy?random=10"
 ---
 
 ### 一、 角色生涯简介：唐人街的守护者

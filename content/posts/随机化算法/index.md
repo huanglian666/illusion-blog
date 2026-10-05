@@ -5,6 +5,7 @@ tags: ["算法", "随机化算法", "算法思想"]
 categories: ["算法"]
 weight: 25
 description: "随机化算法在算法的执行过程中引入随机数，把随机数作为决策依据的一部分。这样做通常有两类收益："
+image: "https://t.alcy.cc/ycy?random=18"
 ---
 
 # 随机化算法（Randomized Algorithm）

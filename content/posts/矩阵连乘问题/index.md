@@ -5,6 +5,7 @@ tags: ["算法", "动态规划", "经典问题"]
 categories: ["算法"]
 weight: 50
 description: "给定 n 个矩阵 A1, A2, , An，其中 Ai 与 A{i+1} 是可乘的（即 Ai 的列数等于 A{i+1} 的行数）。设 Ai 的规模为 …"
+image: "https://t.alcy.cc/ycy?random=12"
 ---
 
 # 矩阵连乘问题（最少乘法次数）

@@ -5,6 +5,7 @@ tags: ["算法", "贪心法", "算法思想"]
 categories: ["算法"]
 weight: 22
 description: "贪心法在每一步决策时都选择当前状态下最优的选项，并且一旦做出选择就不再回溯。它期望通过一系列局部最优选择得到全局最优解——这个期望并不总是成立，因此贪心法必须配…"
+image: "https://t.alcy.cc/ycy?random=16"
 ---
 
 # 贪心法（Greedy Algorithm）

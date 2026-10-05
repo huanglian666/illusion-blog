@@ -5,6 +5,7 @@ tags: ["算法", "NP完全性理论", "算法思想"]
 categories: ["算法"]
 weight: 27
 description: "显然有 P NP，但 P = NP 是否成立至今未解。目前普遍认为 P NP。"
+image: "https://t.alcy.cc/ycy?random=1"
 ---
 
 ## 1. 问题的分类

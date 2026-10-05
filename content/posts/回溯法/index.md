@@ -5,6 +5,7 @@ tags: ["算法", "回溯法", "算法思想"]
 categories: ["算法"]
 weight: 23
 description: "回溯法是一种系统地搜索问题解空间的方法，本质是带剪枝的深度优先搜索。它从根结点出发，按深度优先策略搜索解空间树；搜索到某个结点时，先判断该结点是否可能包含问题的…"
+image: "https://t.alcy.cc/ycy?random=8"
 ---
 
 # 回溯法（Backtracking）

@@ -6,6 +6,7 @@ tags: ["杂项", "工具指南"]
 categories: ["生活与兴趣"]
 weight: 11
 description: "- 备份：防止插件从商店下架后无法再安装。"
+image: "https://t.alcy.cc/ycy?random=3"
 ---
 
 ## 1. **为什么要导出 Chrome 插件？**

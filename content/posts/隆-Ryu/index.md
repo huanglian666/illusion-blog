@@ -6,6 +6,7 @@ tags: ["街霸", "角色资料"]
 categories: ["生活与兴趣"]
 weight: 20
 description: "隆自幼被师父刚拳收养，在朱雀城与同门师兄弟肯（Ken） 一同修习暗杀拳。不同于肯的豪迈与世俗化，隆的一生都在追求“真正的强者”之义。"
+image: "https://t.alcy.cc/ycy?random=17"
 ---
 
 ### 1. 一、 角色生涯简介

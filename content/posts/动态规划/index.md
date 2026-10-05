@@ -5,6 +5,7 @@ tags: ["算法", "动态规划", "算法思想"]
 categories: ["算法"]
 weight: 21
 description: "动态规划与分治法类似，都是把问题分解为规模更小的子问题。区别在于：分治法的子问题相互独立，而动态规划的子问题相互重叠——同一个子问题会在递归过程中被反复求解。动…"
+image: "https://t.alcy.cc/ycy?random=7"
 ---
 
 # 动态规划（Dynamic Programming）

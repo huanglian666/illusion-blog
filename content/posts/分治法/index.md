@@ -5,6 +5,7 @@ tags: ["算法", "分治法", "算法思想"]
 categories: ["算法"]
 weight: 20
 description: "把规模为 n 的问题分解为 k 个规模较小的相互独立的子问题，递归求解后再把子问题的解合并成原问题的解。"
+image: "https://t.alcy.cc/ycy?random=6"
 ---
 
 # 分治法（Divide and Conquer）
