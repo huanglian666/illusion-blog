@@ -1,0 +1,3 @@
+[submodule "themes/illusion"]
+	path = themes/illusion
+	url = https://github.com/huanglian666/illusion.git

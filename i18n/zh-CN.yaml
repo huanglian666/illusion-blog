@@ -1,0 +1,623 @@
+# ============================================================================
+# 幻梦 Illusion v1.1.0 - 简体中文翻译文件 (zh-CN.yaml)
+# 正式预览版
+# 使命: 国际化翻译的起点文件，所有 UI 界面展示文字的**唯一来源**。
+#       本文件覆盖主题全部文本，包括导航、按钮、页面标题、提示、
+#       标签、错误信息、JavaScript 动态文案等。
+#       如需支持其他语言，可将本文件翻译为目标语言后，修改站点
+#       配置文件（hugo.toml）中的 defaultContentLanguage 项即可。
+# 原则: 不得在模板或 TypeScript 中硬编码用户可见的中文字符串，
+#       必须通过 Hugo 的 i18n 函数引用此文件中的 key。
+# ============================================================================
+
+# ============================================================================
+# 站点基础信息
+# 定义网站的标题、描述、作者、关键词等元信息，用于 HTML <head> 和 SEO
+# ============================================================================
+sitetitle:
+  other: "爱则心痛 · azxt"
+sitedescription:
+  other: "爱则心痛的个人博客"
+siteauthor:
+  other: "爱则心痛"
+sitekeywords:
+  other: "技术博客,编程,开发,JavaScript,Python,Flutter,Rust"
+
+# ============================================================================
+# 导航菜单
+# 顶栏导航和侧边栏导航中各个菜单项的文字标签
+# ============================================================================
+nav_home:
+  other: "首页"
+nav_posts:
+  other: "文章"
+nav_archives:
+  other: "归档"
+nav_tags:
+  other: "标签"
+nav_categories:
+  other: "分类"
+nav_about:
+  other: "关于"
+nav_skills:
+  other: "技能"
+nav_links:
+  other: "友链"
+nav_tools:
+  other: "工具"
+nav_search:
+  other: "搜索"
+nav_privacy:
+  other: "隐私政策"
+nav_terms:
+  other: "使用条款"
+
+# ============================================================================
+# 通用按钮文字
+# 网站各处按钮的通用文字标签，包括“阅读全文”、“返回首页”等常见操作
+# ============================================================================
+btn_read_more:
+  other: "阅读全文"
+btn_read_article:
+  other: "阅读文章"
+btn_about_me:
+  other: "关于我"
+btn_back_home:
+  other: "返回首页"
+btn_browse:
+  other: "浏览文章"
+btn_learn_more:
+  other: "了解更多"
+btn_view_all:
+  other: "查看所有文章"
+btn_apply:
+  other: "申请友链"
+btn_submit:
+  other: "提交"
+btn_close:
+  other: "关闭"
+btn_copy:
+  other: "复制"
+btn_copied:
+  other: "已复制"
+btn_scroll_top:
+  other: "返回顶部"
+btn_scroll_bottom:
+  other: "跳到底部"
+btn_open_menu:
+  other: "打开菜单"
+btn_close_menu:
+  other: "关闭菜单"
+btn_visit_site:
+  other: "访问网站"
+btn_search:
+  other: "搜索"
+
+# ============================================================================
+# 文章与帖子相关文案
+# 文章详情页、列表页中展示的元信息标签：阅读时间、字数、发布/更新日期、
+# 上一页/下一页导航、目录标题等
+# ============================================================================
+post_read_time:
+  other: "分钟阅读"
+post_word_count:
+  other: "字符"
+post_word_count_label:
+  other: "字数"
+post_read_label:
+  other: "阅读"
+post_published:
+  other: "发布"
+post_updated:
+  other: "更新"
+post_prev:
+  other: "← 上一篇"
+post_next:
+  other: "下一篇 →"
+post_contents:
+  other: "目录"
+post_info:
+  other: "文章信息"
+post_tags:
+  other: "标签"
+post_category:
+  other: "文章分类"
+post_read_article:
+  other: "阅读文章"
+post_continue:
+  other: "继续阅读"
+post_meta_info:
+  other: "文章信息"
+post_first_published:
+  other: "首次发布，未修改"
+post_recently_updated:
+  other: "最近更新过"
+post_modified_after:
+  other: "发布 {{ .Days }} 天后修改"
+post_new_published:
+  other: "新发布"
+post_badge_updated:
+  other: "已更新"
+post_image_alt:
+  other: "文章封面"
+
+# ----- 分页导航 -----
+# 文章列表分页中的“上一页 / 下一页”按钮文字和当前页码状态文字
+page_prev:
+  other: "上一页"
+page_next:
+  other: "下一页"
+page_nav:
+  other: "分页导航"
+page_of:
+  other: "第 {{ .Current }} 页 / 共 {{ .Total }} 页"
+
+# ============================================================================
+# 归档页面文案
+# 文章归档页的标题、统计数量提示及十二个月份的中文名称
+# ============================================================================
+archives_title:
+  other: "所有文章，按时间归档"
+archives_count:
+  other: "共 {{ .Count }} 篇文章"
+archives_year_count:
+  other: "{{ .Count }} 篇"
+archives_nav_title:
+  other: "归档导航"
+archives_total_articles:
+  other: "总文章"
+archives_total_years:
+  other: "总年份"
+archives_month_01:
+  other: "一月"
+archives_month_02:
+  other: "二月"
+archives_month_03:
+  other: "三月"
+archives_month_04:
+  other: "四月"
+archives_month_05:
+  other: "五月"
+archives_month_06:
+  other: "六月"
+archives_month_07:
+  other: "七月"
+archives_month_08:
+  other: "八月"
+archives_month_09:
+  other: "九月"
+archives_month_10:
+  other: "十月"
+archives_month_11:
+  other: "十一月"
+archives_month_12:
+  other: "十二月"
+
+# ============================================================================
+# 404 错误页面文案
+# 用户访问不存在的路径时显示的提示文字
+# ============================================================================
+not_found_title:
+  other: "页面不存在或已被移除"
+not_found_desc:
+  other: "抱歉，你访问的页面不存在。可能已被删除或链接有误。"
+
+# ============================================================================
+# 关于页面文案
+# “关于”页面的各个区块文字：头衔、座右铭、统计标签、理念标题、联系方式等
+# ============================================================================
+about_subtitle:
+  other: "技术爱好者 · 开发贡献者"
+about_quote:
+  other: "代码如诗，技术如画。在0和1的世界里，创造无限可能。"
+about_articles:
+  other: "技术文章"
+about_skills:
+  other: "技术技能"
+about_experience:
+  other: "开发经验"
+about_passion:
+  other: "热爱程度"
+about_philosophy:
+  other: "技术理念"
+about_contact:
+  other: "保持联系"
+about_contact_desc:
+  other: "如果你对我的工作感兴趣，或者有任何技术问题想要讨论"
+about_contact_note:
+  other: "欢迎交流技术问题、项目合作或开源贡献！"
+about_contact_email:
+  other: "邮箱"
+about_contact_github:
+  other: "GitHub"
+about_contact_website:
+  other: "网站"
+
+# ============================================================================
+# 技能页面文案
+# 技能页中各区块的标题、描述和相关项目标签
+# ============================================================================
+skills_overview:
+  other: "技能总览"
+skills_overview_subtitle:
+  other: "掌握多项技术，持续学习进步"
+skills_detail:
+  other: "详细技能"
+skills_detail_subtitle:
+  other: "每一项技能都经过项目实践验证"
+skills_projects:
+  other: "相关项目"
+skills_timeline:
+  other: "技能发展历程"
+skills_level:
+  other: "技能等级"
+
+# ============================================================================
+# 友情链接页面文案
+# 友链页的标题、申请条件和联系方式等所有展示文字
+# ============================================================================
+links_title:
+  other: "我的朋友们"
+links_subtitle:
+  other: "与志同道合的朋友们互相链接"
+links_visit:
+  other: "访问网站"
+links_apply_title:
+  other: "申请友链"
+links_conditions:
+  other: "申请条件"
+links_conditions_list:
+  other:
+    - "内容优质，原创技术文章优先"
+    - "定期更新，保持活跃"
+    - "无不良内容，健康向上"
+    - "已添加本站链接"
+links_site_info:
+  other: "本站信息"
+links_site_name:
+  other: "名称："
+links_site_url:
+  other: "网址："
+links_site_desc:
+  other: "描述："
+links_contact_title:
+  other: "联系方式"
+links_contact_desc:
+  other: "如果你符合条件并希望交换链接，请通过以下方式联系："
+links_contact_email:
+  other: "发送邮件"
+links_contact_github:
+  other: "GitHub Issues"
+links_category:
+  other: "分类"
+
+# ============================================================================
+# 工具页面文案
+# 工具推荐页面的标题和描述文字
+# ============================================================================
+tools_title:
+  other: "我的工具"
+tools_subtitle:
+  other: "日常使用的效率工具集合"
+
+# ============================================================================
+# 首页文案
+# 首页各区块的标题、副标题、描述和徽章等展示文字
+# ============================================================================
+home_badge:
+  other: "欢迎来到我的世界"
+home_greeting:
+  other: "你好，我是"
+home_scroll_hint:
+  other: "向下滚动探索"
+home_posts:
+  other: "最新文章"
+home_posts_subtitle:
+  other: "分享思考，记录成长"
+home_about_title:
+  other: "关于{{ .Author }}"
+home_about_desc:
+  other: "一名热爱技术的开发者，专注于前端开发、移动应用和新兴技术。"
+home_articles_count:
+  other: "篇文章"
+home_tags_count:
+  other: "个标签"
+home_skills_count:
+  other: "项技能"
+home_tech_stack:
+  other: "技术栈"
+home_tech_stack_subtitle:
+  other: "不断学习，持续进步"
+
+# ============================================================================
+# 页脚文案
+# 页脚各个区域的文字：关于简短介绍、快速链接标题、技术栈、版权声明、
+# 运行时长和渲染耗时提示等
+# ============================================================================
+footer_about:
+  other: "关于我"
+footer_about_desc:
+  other: "{{ .Author }}，一名热爱技术的开发者。专注于前端开发、移动应用和新兴技术。"
+footer_quick_links:
+  other: "快速链接"
+footer_tech_stack:
+  other: "技术栈"
+footer_follow_me:
+  other: "关注我"
+footer_motto:
+  other: "分享知识，共同进步"
+footer_sitemap:
+  other: "网站地图"
+footer_rss:
+  other: "RSS 订阅"
+footer_copyright_prefix:
+  other: "\u00A9"                          # 版权符号 ©
+footer_copyright_separator:
+  other: "-"
+footer_copyright_webmaster:
+  other: "站长"
+footer_copyright_reserved:
+  other: "保留"
+footer_copyright_rights:
+  other: "网站所有权利"
+footer_powered_prefix:
+  other: "由"
+footer_powered_hugo:
+  other: "Hugo 强力驱动"
+footer_powered_separator:
+  other: "\u00B7"                          # 分隔符 ·
+footer_powered_theme:
+  other: "主题："
+footer_powered_author:
+  other: "作者："
+footer_uptime_label:
+  other: "已运行"
+footer_uptime_loading:
+  other: "加载中..."
+footer_render_time:
+  other: "加载耗时"
+
+# ============================================================================
+# 搜索功能文案
+# 搜索弹窗和相关功能的所有界面文字
+# ============================================================================
+search_title:
+  other: "搜索文章"
+search_placeholder:
+  other: "搜索文章..."
+search_close:
+  other: "关闭搜索"
+search_no_results:
+  other: "未找到包含"
+search_results:
+  other: "个结果"
+search_error:
+  other: "搜索功能暂时不可用"
+search_error_hint:
+  other: "请刷新页面重试或直接浏览文章"
+search_disabled:
+  other: "搜索功能已关闭。"
+search_results_title:
+  other: "搜索结果"
+
+# ============================================================================
+# 评论功能文案
+# 评论系统和相关提示的所有文字，包括各评论引擎（Disqus、Utterances、
+# Giscus、Twikoo、Waline、Artalk）的配置警告
+# ============================================================================
+comments_title:
+  other: "评论"
+comments_section:
+  other: "评论区域"
+comments_enable_js:
+  other: "请启用JavaScript以查看评论。"
+comments_disqus_warn:
+  other: "Disqus 配置未完成，请在站点配置中设置 disqusShortname。"
+comments_utterances_warn:
+  other: "Utterances 配置未完成，请在站点配置中设置 utterancesRepo。"
+comments_giscus_warn:
+  other: "Giscus 配置未完成，请在站点配置中设置 giscusRepo、giscusRepoId、giscusCategory 和 giscusCategoryId。"
+comments_twikoo_warn:
+  other: "Twikoo 配置未完成，请在站点配置中设置 twikooEnvId。"
+comments_waline_warn:
+  other: "Waline 配置未完成，请在站点配置中设置 walineServerURL。"
+comments_artalk_warn:
+  other: "Artalk 配置未完成，请在站点配置中设置 artalkServer。"
+comments_disabled:
+  other: "评论功能已关闭或未正确配置。"
+
+# ============================================================================
+# 主题切换文案
+# 深色/浅色主题切换按钮的提示文字和标签
+# ============================================================================
+theme_label:
+  other: "切换主题模式"
+theme_light:
+  other: "切换到深色模式"
+theme_dark:
+  other: "切换到浅色模式"
+theme_system:
+  other: "切换到手动模式"
+theme_light_label:
+  other: "浅色模式"
+theme_dark_label:
+  other: "深色模式"
+theme_system_label:
+  other: "跟随系统"
+
+# ============================================================================
+# 标签云和标签页文案
+# 标签页及标签云组件的标题、统计数量和空状态提示
+# ============================================================================
+tag_cloud_title:
+  other: "标签云"
+tags_header_title:
+  other: "标签"
+tags_count:
+  other: "共 {{ .Count }} 个标签"
+tags_article_count:
+  other: "{{ .Count }} 篇文章"
+tags_empty:
+  other: "暂无标签"
+tags_more:
+  other: "+{{ .Count }}"
+
+# ============================================================================
+# 分类页文案
+# 文章分类页的标题、统计数量和空状态提示
+# ============================================================================
+categories_header_title:
+  other: "分类"
+categories_count:
+  other: "共 {{ .Count }} 个分类"
+categories_empty:
+  other: "暂无分类"
+categories_article_count:
+  other: "{{ .Count }} 篇文章"
+
+# ============================================================================
+# 分类/标签聚合页文案
+# Hugo 的 taxonomy（分类法）和 term（术语）聚合页面的通用文案
+# ============================================================================
+taxonomy_count:
+  other: "共 {{ .Count }} 个条目"
+taxonomy_empty:
+  other: "暂无内容"
+term_count:
+  other: "共 {{ .Count }} 篇文章"
+term_empty:
+  other: "暂无文章"
+
+# ============================================================================
+# 日历组件文案
+# 归档页或侧边栏中日历组件的星期名称和日期格式化字符串
+# ============================================================================
+calendar_weekdays:
+  other: "日,一,二,三,四,五,六"
+calendar_year_suffix:
+  other: "年"
+calendar_month_suffix:
+  other: "月"
+calendar_day_suffix:
+  other: "日"
+calendar_date_format:
+  other: "%s年%s月%s日 %s"
+
+# ============================================================================
+# 相对时间显示文案
+# 将绝对日期转换为“刚刚 / X分钟前 / X天前”等相对时间时的文字后缀
+# ============================================================================
+rel_just_now:
+  other: "刚刚"
+rel_minutes_ago:
+  other: " 分钟前"
+rel_hours_ago:
+  other: " 小时前"
+rel_days_ago:
+  other: " 天前"
+rel_weeks_ago:
+  other: " 周前"
+rel_months_ago:
+  other: " 个月前"
+rel_years_ago:
+  other: " 年前"
+
+# ============================================================================
+# JavaScript 运行时文案
+# 以下为浏览器端 JavaScript 动态生成的文案（非 Hugo 模板渲染），
+# 包括搜索提示、代码复制按钮、归档导航、站点运行时长、评论加载提示等
+# ============================================================================
+
+# ----- 搜索功能 (JavaScript 运行时) -----
+# 前端搜索索引加载失败或搜索无结果时的动态提示
+js_search_error:
+  other: "搜索索引加载失败"
+js_search_error_hint:
+  other: "请刷新页面重试或直接浏览文章"
+js_search_no_results:
+  other: "未找到"
+js_search_results_for:
+  other: "的搜索结果"
+js_search_results_count:
+  other: "个结果"
+
+# ----- 代码复制按钮 (JavaScript 运行时) -----
+# 代码块右上角“复制”按钮的文字和复制成功后的反馈
+js_code_copy:
+  other: "复制"
+js_code_copied:
+  other: "已复制"
+
+# ----- 归档导航 (JavaScript 运行时) -----
+# 归档页交互式导航的年份切换按钮和空数据提示
+js_archives_no_data:
+  other: "无数据"
+js_archives_year_prev:
+  other: "上一年"
+js_archives_year_next:
+  other: "下一年"
+
+# ----- 站点运行时长 (JavaScript 运行时) -----
+# 页脚站点已运行时间的标签文字
+js_uptime_label:
+  other: "已运行"
+
+# ----- 评论加载 (JavaScript 运行时) -----
+# Disqus 等评论系统加载时需要用户启用 JavaScript 的提示
+js_comments_enable_js:
+  other: "请启用JavaScript以查看Disqus评论"
+
+# ----- 代码复制标签 (JavaScript 运行时) -----
+# 替代 aria-label 的“复制代码”按钮无障碍文字
+js_copy_code:
+  other: "复制代码"
+
+# ============================================================================
+# 社交链接文字标签
+# 各社交平台链接的悬停提示和辅助标签文字
+# ============================================================================
+social_github:
+  other: "GitHub"
+social_email:
+  other: "邮箱"
+social_rss:
+  other: "RSS 订阅"
+social_twitter:
+  other: "Twitter"
+social_telegram:
+  other: "Telegram"
+social_wechat:
+  other: "微信"
+
+# ============================================================================
+# 无障碍（Accessibility）文案
+# 供屏幕阅读器和辅助技术使用的 aria-label 属性和跳转链接文字
+# ============================================================================
+a11y_skip_to_main:
+  other: "跳转到主要内容"
+a11y_header_main_nav:
+  other: "主导航"
+a11y_header_mobile_nav:
+  other: "移动端导航"
+a11y_header_social_links:
+  other: "社交链接"
+a11y_header_title_toggle:
+  other: "切换深色/浅色主题"
+a11y_pagination_nav:
+  other: "分页导航"
+a11y_background_image:
+  other: "背景图片"
+
+# ============================================================================
+# 页头文案
+# 页面顶部 Header 区域的副标题文字
+# ============================================================================
+header_subtitle:
+  other: "爱则心痛 · azxt"
+
+# ============================================================================
+# 推荐阅读文案
+# 文章底部“推荐阅读”区块的标题文字
+# ============================================================================
+related_posts:
+  other: "推荐阅读"
