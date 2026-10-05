@@ -1,0 +1,39 @@
+{{- /* 幻梦 Illusion v1.1.0 - 正式预览版 */ -}}
+{{- /* 首页"技术栈"板块组件（站点级覆盖版，位于站点 layouts/ 下，优先级高于主题同名模板）。 */ -}}
+{{- /* 与主题原版的差异：技能图标优先读取数据里的 icon 字段，未配置时再按名称回退。 */ -}}
+{{- $homeData := hugo.Data.theme.home | default dict -}}
+{{- $skillsData := $homeData.skills | default dict -}}
+{{- $skillCount := $skillsData.count | default 6 -}}
+{{- $skillsList := default slice (hugo.Data.theme.skills).skills -}}
+
+<section class="skills-section" data-aos="fade-up">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon"><i class="fas fa-rocket"></i></div>
+      <h2 class="section-title">{{ $skillsData.title | default (i18n "home_tech_stack") }}</h2>
+      <p class="section-subtitle">{{ $skillsData.subtitle | default (i18n "home_tech_stack_subtitle") }}</p>
+    </div>
+    <div class="skills-grid" role="list">
+      {{ range $index, $skill := first $skillCount $skillsList }}
+      {{- /* 图标解析：数据里的 icon 优先；没有则按技能名回退到原主题的映射，最后兜底通用图标 */ -}}
+      {{- $icon := $skill.icon -}}
+      {{- if not $icon -}}
+        {{- if eq $skill.name "JavaScript" }}{{ $icon = "fab fa-js-square" }}
+        {{- else if eq $skill.name "HTML5" }}{{ $icon = "fab fa-html5" }}
+        {{- else if eq $skill.name "CSS3" }}{{ $icon = "fab fa-css3-alt" }}
+        {{- else if eq $skill.name "Python" }}{{ $icon = "fab fa-python" }}
+        {{- else }}{{ $icon = "fas fa-code" }}{{ end -}}
+      {{- end -}}
+      <div class="skill-item" data-aos="zoom-in" data-aos-delay="{{ mul $index 80 }}" role="listitem">
+        <div class="skill-icon">
+          <i class="{{ $icon }}"></i>
+        </div>
+        <div class="skill-info">
+          <div class="skill-name"><span>{{ $skill.name }}</span><span class="skill-percent">{{ $skill.level }}%</span></div>
+          <div class="skill-bar"><div class="skill-progress" data-level="{{ $skill.level }}"></div></div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

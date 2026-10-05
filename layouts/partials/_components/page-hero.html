@@ -1,0 +1,78 @@
+{{- /* 幻梦 Illusion v1.1.0 - 正式预览版 */ -}}
+{{- /* 首页 Hero 区域组件（站点级覆盖版，位于站点 layouts/ 下，优先级高于主题同名模板）。 */ -}}
+{{- /* 与主题原版的差异：右侧名言改为「本地池随机」，首帧即为随机内容，一次访问只显示一次。 */ -}}
+{{- $homeData := hugo.Data.theme.home | default dict -}}
+{{- $hero := $homeData.hero | default dict -}}
+{{- $quote := $hero.quote | default dict -}}
+
+{{- /* 本地名言池：兼容旧配置的单个 text 字段；都没有时退回国际化默认文案 */ -}}
+{{- $quotes := $quote.texts | default slice -}}
+{{- if and (eq (len $quotes) 0) $quote.text }}{{ $quotes = slice $quote.text }}{{ end -}}
+{{- if eq (len $quotes) 0 }}{{ $quotes = slice (i18n "home_badge") }}{{ end -}}
+
+<section class="hero" data-aos="fade-up">
+  <div class="container">
+    <div class="hero-inner">
+      {{- /* 左侧内容区 */ -}}
+      <div class="hero-left">
+        <div class="hero-content">
+          {{- /* 顶部徽章 */ -}}
+          <div class="hero-badge">
+            <i class="fas fa-sparkles"></i>
+            <span>{{ $hero.badgeText | default (i18n "home_badge") }}</span>
+          </div>
+          <h1 class="hero-title title-anime">
+            <span class="hero-greeting">{{ $hero.greeting | default (i18n "home_greeting") }}</span>
+            <span class="hero-name">{{ $hero.title | default site.Title }}</span>
+          </h1>
+          {{ $subtitles := $hero.subtitles | default (slice "技术开发者" "代码艺术家" "终身学习者" "梦想追逐者") }}
+          <p class="hero-subtitle">
+            <i class="fas fa-terminal"></i>
+            <span class="typed-text" data-typed='{{ $subtitles | jsonify }}'>{{ index $subtitles 0 }}</span>
+          </p>
+          <p class="hero-description">{{ $hero.description | default (i18n "home_badge") }}</p>
+          {{- /* CTA 按钮组 */ -}}
+          <div class="hero-actions">
+            {{ with $hero.primaryBtn }}
+            <a href="{{ .url | default "/posts" }}" class="btn btn-primary btn-anime">
+              <i class="fas fa-book-open"></i> {{ .text | default (i18n "btn_read_article") }}
+            </a>
+            {{ end }}
+            {{ with $hero.secondaryBtn }}
+            <a href="{{ .url | default "/about" }}" class="btn btn-secondary btn-anime">
+              <i class="fas fa-heart"></i> {{ .text | default (i18n "btn_about_me") }}
+            </a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+      {{- /* 右侧名言引用区 */ -}}
+      <div class="hero-right">
+        <blockquote class="fancy-quote" data-aos="fade-up" data-aos-delay="200">
+          <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+          <p class="quote-text"
+             data-quote-texts='{{ $quotes | jsonify }}'>{{ index $quotes 0 }}</p>
+          <footer class="quote-author">— {{ $quote.author | default site.Params.author }}</footer>
+        </blockquote>
+        <script>
+        /* 首帧随机：这段脚本没有 defer/async，会在 HTML 解析到这里时同步执行。
+           此时浏览器尚未进行首次绘制，所以访客第一眼看到的就是随机的那一句，
+           不会出现"先闪出固定第一条、再跳成别的"。同一页面内不再变化，刷新才会换。 */
+        (function () {
+          var el = document.querySelector('.quote-text');
+          if (!el) return;
+          try {
+            var list = JSON.parse(el.getAttribute('data-quote-texts') || '[]');
+            if (list.length) el.textContent = list[Math.floor(Math.random() * list.length)];
+          } catch (e) {}
+        })();
+        </script>
+      </div>
+    </div>
+    {{- /* 底部滚动提示 */ -}}
+    <div class="hero-scroll-hint" data-aos="fade-up" data-aos-delay="500">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>{{ i18n "home_scroll_hint" }}</span>
+    </div>
+  </div>
+</section>

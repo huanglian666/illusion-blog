@@ -1,0 +1,17 @@
+{{- /* 幻梦 Illusion v1.1.0 - 正式预览版 */ -}}
+{{- /* CSS 编译模板（站点级覆盖版，优先级高于主题同名模板）。 */ -}}
+{{- /* 与主题原版的差异：当页面含数学公式时，额外加载自托管的 KaTeX 样式。 */ -}}
+{{- $opts := dict "transpiler" "dartsass" "targetPath" "css/style.css" "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction) }}
+{{- with resources.Get "scss/main.scss" | toCSS $opts | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+{{- end -}}
+
+{{- /* 仅当正文里出现公式定界符时才加载 KaTeX 样式，其他页面不付这份开销 */ -}}
+{{- $needMath := false -}}
+{{- with .RawContent -}}{{ if findRE `\$\$|\$[^$\n]+\$|\\\(` . }}{{ $needMath = true }}{{ end }}{{ end -}}
+{{- if $needMath -}}
+<link rel="stylesheet" href="{{ "lib/katex/katex.min.css" | relURL }}">
+{{- end -}}
+
+{{- /* 提示框（callout）样式：由 VuePress 的 ::: 容器语法转换而来 */ -}}
+<link rel="stylesheet" href="{{ "css/callouts.css" | relURL }}">

@@ -19,7 +19,7 @@
 baseURL = 'https://huanglian.top/'
 locale = 'zh-CN'
 languageName = '中文'
-title = '黄炼'
+title = '淬炼笔记'
 theme = 'illusion'
 defaultContentLanguage = 'zh'
 defaultContentLanguageInSubdir = false
@@ -244,6 +244,23 @@ enableGitInfo = true
     noClasses = false
     tabWidth = 2
     lineNos = false
+
+  # ----- 数学公式（KaTeX）透传 -----
+  # enable = true 时，Hugo 不解析这些定界符之间的内容，原样输出交给前端 KaTeX 渲染。
+  # 不开启的话，公式里的下划线会被当成 Markdown 的斜体语法，公式直接渲染坏。
+  # block: 块级公式定界符；inline: 行内公式定界符。
+  [markup.goldmark]
+    # unsafe = true 允许正文里的原始 HTML 原样输出（不会被丢弃或转义）。
+    # 内容全部由站长本人撰写，不存在用户投稿注入的风险，因此开启。
+    # 提示框、文章里的 <table> 等都依赖这个开关。
+    [markup.goldmark.renderer]
+      unsafe = true
+
+    [markup.goldmark.extensions.passthrough]
+      enable = true
+      [markup.goldmark.extensions.passthrough.delimiters]
+        block = [['\[', '\]'], ['$$', '$$']]
+        inline = [['\(', '\)'], ['$', '$']]
 
 # ========== 输出格式 ==========
 # 定义 Hugo 为每种页面类型生成的输出格式列表。

@@ -102,8 +102,8 @@ layout: "legal"
 
 如果您对本隐私政策有任何疑问，请通过以下方式联系我们：
 
-- **邮箱**: admin@azxt.org
-- **网站**: [azxt.org](https://azxt.org)
+- **邮箱**: huanglian684@gmail.com
+- **网站**: [huanglian.top](https://huanglian.top)
 
 ---
 

@@ -1,0 +1,77 @@
+/* ============================================================================
+ * 提示框（Callout）样式
+ *
+ * 用途：渲染从 VuePress 的 ::: note / ::: tip / ::: warning / ::: danger
+ *       容器语法转换而来的提示框。转换后的 HTML 结构为：
+ *
+ *       <div class="callout callout-note">
+ *         <div class="callout-title"><i class="fas fa-circle-info"></i> 说明</div>
+ *         <div class="callout-body"> ...正文... </div>
+ *       </div>
+ *
+ * 配色全部取主题已有的 CSS 变量（--c-* / --rd-*），因此能自动跟随
+ * 浅色 / 深色主题切换，不需要在这里重复定义颜色。
+ * ========================================================================== */
+
+.callout {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--c-border);
+  border-left: 4px solid var(--c-info);
+  border-radius: var(--rd-md);
+  background: var(--c-surface-elevated);
+  color: var(--c-text-primary);
+}
+
+/* 标题行：图标 + 文字，颜色跟随所属类型 */
+.callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--c-info);
+}
+
+/* 正文里的首尾元素去掉外边距，避免提示框上下留白过大 */
+.callout-body > :first-child { margin-top: 0; }
+.callout-body > :last-child { margin-bottom: 0; }
+
+/* 提示框内的标题降一级视觉层级，避免"框里套大标题"显得突兀 */
+.callout-body h1,
+.callout-body h2,
+.callout-body h3,
+.callout-body h4 {
+  margin: 0.75rem 0 0.5rem;
+  font-size: 1rem;
+  color: inherit;
+}
+
+/* ----- 各类型配色 ----- */
+
+/* note：中性说明 */
+.callout-note {
+  border-left-color: var(--c-info);
+}
+.callout-note .callout-title { color: var(--c-info); }
+
+/* tip：正向提示 */
+.callout-tip {
+  border-left-color: var(--c-success);
+  background: var(--c-success-bg);
+}
+.callout-tip .callout-title { color: var(--c-success); }
+
+/* warning：需要留意 */
+.callout-warning {
+  border-left-color: var(--c-warning);
+  background: var(--c-warning-bg);
+}
+.callout-warning .callout-title { color: var(--c-warning); }
+
+/* danger：错误 / 风险 */
+.callout-danger {
+  border-left-color: var(--c-error);
+}
+.callout-danger .callout-title { color: var(--c-error); }
