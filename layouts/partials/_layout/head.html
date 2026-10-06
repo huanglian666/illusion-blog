@@ -39,13 +39,17 @@
 
 {{- /* ========== Open Graph 社交分享标签 ========== */ -}}
 {{- $assets := hugo.Data.theme.assets -}}
-{{- $ogImage := $assets.avatar.url | default "https://t.alcy.cc/tx" -}}
+{{- /* 先把数据里的头像地址规范化成"已带 baseURL 子路径"的站内路径 */ -}}
+{{- $ogImage := partial "_utils/site-url.html" ($assets.avatar.url | default "https://t.alcy.cc/tx") -}}
+{{- /* 文章页若有自己的封面则覆盖；post-cover 返回的是 RelPermalink，已经带子路径 */ -}}
 {{- if .IsPage }}{{ with (partial "_utils/post-cover.html" .) }}{{ $ogImage = . }}{{ end }}{{ end -}}
-{{- /* 社交卡片要求绝对 URL。注意这里不能用 absURL：absURL 与 relURL 一样， */ -}}
-{{- /* 遇到前导斜杠会丢掉 baseURL 里的子路径。先用 site-url 规范化成带子路径的 */ -}}
-{{- /* 相对地址，再拼上站点主机名。 */ -}}
+{{- /* 社交卡片要求绝对 URL。注意两点： */ -}}
+{{- /*   1. 不能用 absURL —— 它与 relURL 一样，遇到前导斜杠会丢掉子路径； */ -}}
+{{- /*   2. 只能拼 scheme://host，不能拼 site.BaseURL —— 因为上面的值已经带了 */ -}}
+{{- /*      baseURL 里的子路径，再拼一次会变成 /子路径/子路径/... 重复。 */ -}}
 {{- if not (hasPrefix $ogImage "http") -}}
-  {{- $ogImage = printf "%s%s" (strings.TrimSuffix "/" site.BaseURL) (partial "_utils/site-url.html" $ogImage) -}}
+  {{- $siteURL := urls.Parse site.BaseURL -}}
+  {{- $ogImage = printf "%s://%s%s" $siteURL.Scheme $siteURL.Host $ogImage -}}
 {{- end }}
 
 <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
