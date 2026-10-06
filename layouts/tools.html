@@ -1,0 +1,44 @@
+{{- /* 幻梦 Illusion v1.1.0 - 正式预览版 */ -}}
+{{- /* 工具推荐页面模板（站点级覆盖版，优先级高于主题同名模板）。 */ -}}
+{{- /* 与主题原版的差异：图标类型判断放宽为「http 开头 或 / 开头」。 */ -}}
+{{- /* 主题原本只认 "http" 开头，所以把外链图标换成本地 /images/... 路径后会被误判成字体图标。 */ -}}
+{{ define "main" }}
+{{- /* 从主题数据获取工具配置 */ -}}
+{{ $toolsData := hugo.Data.theme.tools }}
+<div class="section-content">
+  <div class="container">
+    {{ partial "_components/page-header.html" (dict "Title" .Title "Description" .Description) }}
+
+    {{- /* 按分类遍历展示工具 */ -}}
+    <section class="tools-section">
+      {{ range $toolsData.categories }}
+      <div class="tools-category" data-aos="fade-up">
+        <div class="category-header">
+          <div class="category-icon"><i class="{{ .icon }}"></i></div>
+          <div class="category-info">
+            <h2 class="category-title">{{ .name }}</h2>
+            <p class="category-description">{{ .description }}</p>
+          </div>
+        </div>
+        <div class="tools-grid">
+          {{ range .tools }}
+          <a href="{{ .url }}" class="tool-card" target="_blank" rel="noopener nofollow" data-aos="zoom-in">
+            {{- /* 判断图标类型：http 外链或 / 站内路径当作图片，其余当作字体图标类名 */ -}}
+            <div class="tool-icon">
+              {{- if or (hasPrefix .icon "http") (hasPrefix .icon "/") -}}<img src="{{ .icon }}" alt="{{ .name }}" loading="lazy">
+              {{- else -}}<i class="{{ .icon }}"></i>{{- end -}}
+            </div>
+            <div class="tool-content">
+              <h3 class="tool-name">{{ .name }}</h3>
+              <p class="tool-description">{{ .description }}</p>
+            </div>
+            <div class="tool-arrow"><i class="fas fa-external-link-alt"></i></div>
+          </a>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </section>
+  </div>
+</div>
+{{ end }}
