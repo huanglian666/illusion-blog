@@ -1,0 +1,9 @@
+# Netlify 服务端重写规则（GitHub Pages 会忽略此文件）
+#
+# 用途：本站在 GitHub Pages 上部署于 /illusion-blog/ 子路径，构建产物里的
+# 资源地址带该前缀。若把同一份产物部署到 Netlify（域名根目录），
+# 下面这条会把 /illusion-blog/xxx 的请求重写到 /xxx，使产物无需重新构建即可复用。
+#
+# 注意：这是 rewrite（200）而不是 redirect（301），浏览器地址栏不会变化。
+# GitHub Pages 是纯静态托管，不读取本文件，因此对 GitHub Pages 无效。
+/illusion-blog/*  /:splat  200
