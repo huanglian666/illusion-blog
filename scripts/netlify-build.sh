@@ -53,13 +53,30 @@ sass --version
 
 # ---------------------------------------------------------------------------
 # 4. 构建
-#    baseURL 用 Netlify 注入的地址：
-#      DEPLOY_PRIME_URL - 本次部署的地址（部署预览是预览地址，正式是正式地址）
-#      URL              - 站点主地址
-#    未绑定自定义域名时是 https://xxx.netlify.app/，绑定后自动变成自定义域名，
-#    因此不需要改任何配置。
+#
+#    baseURL 按 Netlify 的部署上下文选择地址，不能一律用 DEPLOY_PRIME_URL：
+#
+#      正式部署（production）
+#        DEPLOY_PRIME_URL 返回的是"分支专属地址"，形如
+#        https://main--<站点名>.netlify.app，而不是站点主域名。
+#        用它会让 og:url / og:image / RSS 等绝对地址都指向那个地址，
+#        社交分享卡片上会显示错误的链接。
+#        因此正式部署用 URL —— Netlify 保证它是站点主地址，
+#        绑定自定义域名后即为该域名。
+#
+#      部署预览 / 分支部署
+#        这两类部署本就该指向自己的预览地址，用 DEPLOY_PRIME_URL 才正确，
+#        否则预览页里的链接会指向正式站。
+#
+#    Netlify 通过 CONTEXT 变量告知上下文：production / deploy-preview /
+#    branch-deploy。取不到时按 production 处理。
 # ---------------------------------------------------------------------------
-BASE="${DEPLOY_PRIME_URL:-${URL:-}}"
+if [ "${CONTEXT:-production}" = "production" ]; then
+  BASE="${URL:-}"
+else
+  BASE="${DEPLOY_PRIME_URL:-${URL:-}}"
+fi
+echo "==> 部署上下文: ${CONTEXT:-production}"
 if [ -n "${BASE}" ]; then
   BASE="${BASE%/}/"
   echo "==> baseURL: ${BASE}"
