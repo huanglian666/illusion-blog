@@ -105,7 +105,7 @@ about:
   # ----- 个人信息头部 -----
   intro:
     name: "黄炼"                  # 你的名字 / 昵称
-    title: "Java 后端开发者 · 生活记录者"  # 个人头衔 / 一句话简介
+    title: "后端开发者 · 生活记录者"  # 个人头衔 / 一句话简介
     quote: "把零散的知识淬炼成体系，把日常的碎屑留成痕迹。"  # 个人座右铭
 
   # ----- 数据统计卡片 -----
@@ -121,7 +121,7 @@ about:
       label: "技术技能"
 
     - icon: "fas fa-calendar-alt"
-      number: "3+"                           # 手动填写固定数值（或 "auto"）
+      number: "4+"                           # 手动填写固定数值（或 "auto"）
       label: "开发经验"
 
     - icon: "fas fa-heart"
@@ -185,7 +185,7 @@ assets:
 
   # ----- 站点头像 -----
   avatar:
-    url: "/headimg.jpg"                      # 头像图片的 URL 路径，支持本地路径或完整 URL
+    url: "/images/avatar.jpg"                # 头像图片的 URL 路径，支持本地路径或完整 URL
     alt: "站点头像"                           # 图片加载失败或无障碍访问时显示的替代文本
 
   # ----- 背景图片 -----
@@ -286,14 +286,14 @@ skills:
 
     categories:                              # 技能分类列表
 
-      - icon: "fas fa-mug-hot"
-        title: "Java 基础"
-        description: "JavaSE 语法、面向对象、集合框架、异常与多线程"
+      - icon: "fas fa-server"
+        title: "后端开发"
+        description: "JavaSE 语法与面向对象、集合框架、异常与多线程、RESTful API 设计"
         progress: 85
 
       - icon: "fas fa-layer-group"
         title: "框架与中间件"
-        description: "Spring、SpringBoot、SpringMVC、MyBatis、Redis、RocketMQ"
+        description: "Spring、SpringBoot、SpringMVC、SpringCloud（Nacos / Gateway / Sentinel / Seata）、MyBatis、Redis、RocketMQ"
         progress: 75
 
       - icon: "fas fa-database"
@@ -316,25 +316,11 @@ skills:
         description: "HTML/CSS/JavaScript、Servlet、JSP、Vue"
         progress: 65
 
-      - icon: "fas fa-code"                  # 分类图标（Font Awesome）
-        title: "前端开发"                    # 分类名称
-        description: "HTML5、CSS3、JavaScript、React"  # 分类简述，展示在卡片中
-        progress: 100                        # 进度条百分比：0-100，仅作为视觉展示参考
-
-      - icon: "fas fa-server"
-        title: "后端开发"
-        description: "Node.js、Python、数据库、API"
-        progress: 100
-
-      - icon: "fas fa-mobile-alt"
-        title: "移动开发"
-        description: "Flutter、React Native、原生开发"
-        progress: 100
-
       - icon: "fas fa-tools"
         title: "开发工具"
-        description: "Git、Docker、VS Code、构建工具"
-        progress: 100
+        description: "IntelliJ IDEA、Maven、Git、Docker"
+        progress: 80
+
   # ----- 详细技能列表 -----
   # 以条目形式展示每项技能的掌握程度、描述和相关项目经历
   skills:
@@ -342,17 +328,11 @@ skills:
     - name: "Java"                           # 技能名称
       level: 85                              # 掌握程度：0-100，数字越大越熟练
       icon: "fab fa-java"                    # 首页技术栈卡片使用的图标（Font Awesome 类名）
-      description: "熟悉 JavaSE 基础语法、面向对象、集合框架、异常处理与多线程，了解 JVM 内存结构。"
+      description: "熟悉 JavaSE 语法、面向对象、集合框架与多线程，了解 JVM 内存结构；掌握 Spring 核心（IoC/AOP）、SpringMVC 与 SpringBoot 自动配置，能独立搭建后端服务；熟悉 SpringCloud 微服务组件（Nacos、Gateway、Sentinel、Seata）与分布式场景下的服务治理。"
       projects:
+        - "海尔智慧通行"
+        - "青岛港玉衡框架"
         - "个人博客系统"
-        - "SpringBoot 练手项目"
-
-    - name: "Spring Boot"
-      level: 78
-      icon: "fas fa-leaf"
-      description: "掌握 Spring 核心（IoC/AOP）、SpringMVC 与 SpringBoot 自动配置，能独立搭建后端服务。"
-      projects:
-        - "RESTful 接口服务"
 
     - name: "MySQL"
       level: 80
@@ -378,39 +358,20 @@ skills:
       description: "熟悉分支管理、变基与冲突处理，能在团队协作中规范使用 Git 工作流。"
       projects: []
 
-    - name: "JavaScript"                     # 技能名称
-      level: 90                              # 掌握程度：0-100，数字越大越熟练
-      description: "掌握ES6+特性、异步编程、模块化开发，熟悉Vue.js和React框架。"  # 技能描述段落
+    - name: "Web 开发"                       # 技能名称
+      level: 50                              # 掌握程度：0-100，数字越大越熟练
+      icon: "fas fa-globe"                   # 首页技术栈卡片使用的图标（Font Awesome 类名）
+      description: "了解 HTML / CSS / JavaScript 基础，能写静态页面与简单交互；掌握 Servlet、JSP，能配合 Vue 完成前后端联调。"
       projects:                              # 与该技能相关的项目列表，可为空数组 []
         - "个人博客系统"
-        - "数据可视化平台"
-        - "在线编辑器"
-
-    - name: "HTML5"
-      level: 90
-      description: "精通语义化标签、Canvas绘图、Web Storage等HTML5新特性。"
-      projects: []
-
-    - name: "CSS3"
-      level: 90
-      description: "熟练使用Flexbox、Grid布局，掌握CSS动画和响应式设计。"
-      projects: []
 
     - name: "Python"
-      level: 90
-      description: "熟悉Django、Flask框架，掌握数据分析和机器学习基础。"
+      level: 30
+      icon: "fab fa-python"
+      description: "了解 Python 基础语法，能读懂并编写简单的脚本处理日常任务。"
       projects:
         - "自动化脚本工具"
-        - "Web爬虫系统"
         - "数据分析报告"
-
-    - name: "Flutter"
-      level: 75
-      description: "掌握Dart语言，熟悉Widget系统，能够开发跨平台应用。"
-      projects:
-        - "跨平台电商应用"
-        - "社交应用开发"
-        - "工具类应用"
 
     - name: "Rust"
       level: 55
@@ -421,25 +382,33 @@ skills:
   # 以时间轴形式展示技术成长历程
   timeline:
 
-    - year: "2022"                           # 时间节点（年份）
-      title: "基础学习"                      # 该阶段标题
-      description: "掌握HTML、CSS、JavaScript基础，完成第一个个人网站项目。"  # 阶段描述
+    - year: "2018"                           # 时间节点（年份）
+      title: "起步"                          # 该阶段标题
+      description: "从 Java 基础语法和面向对象入门，理解集合框架、异常处理与多线程。"  # 阶段描述
 
-    - year: "2023"
-      title: "框架掌握"
-      description: "学习Vue.js和React框架，参与团队项目开发，掌握前后端分离架构。"
+    - year: "2020"
+      title: "Web 与服务端"
+      description: "学习 HTML / CSS / JavaScript 与 JavaWeb（Servlet、JSP），补上 MySQL 与 JDBC。"
+
+    - year: "2021"
+      title: "框架与工程化"
+      description: "系统学习 Spring、SpringMVC、MyBatis、SpringBoot，用 Maven 和 Git 规范地做项目。"
+
+    - year: "2022"
+      title: "数据与中间件"
+      description: "深入 MySQL 索引、事务与锁机制，掌握 Redis 缓存与常见应用场景。"
+
+    - year: "2022"
+      title: "微服务与部署"
+      description: "接触 SpringCloud（Nacos、Gateway、Sentinel、Seata）与 Docker，理解分布式服务治理。"
 
     - year: "2024"
-      title: "全栈发展"
-      description: "学习Node.js和Python后端开发，掌握数据库设计和API开发。"
+      title: "项目实践"
+      description: "参与海尔智慧通行、青岛港玉衡框架等项目，把前面学的技术真正用到生产里。"
 
     - year: "2025"
-      title: "移动开发"
-      description: "学习Flutter跨平台开发，完成多个移动应用项目。"
-
-    - year: "2026"
-      title: "技术深化"
-      description: "学习Rust语言，深入研究性能优化和系统架构设计。"
+      title: "拓宽边界"
+      description: "学习 Python、Rust 与大模型智能体开发，把视野从后端扩展到新的方向。"
 
 
 # ============================================================================
@@ -451,12 +420,29 @@ friends:
   # ----- 友链列表 -----
   friends:
 
-    # 目前还没有交换友链的站点，先留空。有友链后按下面的结构补充即可：
-    # - name: "站点名称"
-    #   url: "https://example.com"
-    #   avatar: "https://example.com/avatar.png"
-    #   description: "一句话简介"
-    #   category: "技术博客"
+    - name: "栗次元API"                      # 友链站点的名称
+      url: "https://t.alcy.cc/"              # 友链站点的网址
+      avatar: "https://t.alcy.cc/favicon.ico"  # 友链头像 URL
+      description: "高品质免费随机图片 API 服务，本站封面与背景图的来源"  # 友链站点的简要描述
+      category: "在线服务"                   # 所属分类，用于分组显示
+
+    - name: "Hugo"
+      url: "https://gohugo.io/"
+      avatar: "https://gohugo.io/favicon-32x32.png"
+      description: "全球最快的静态网站生成框架，本站基于 Hugo 构建"
+      category: "开源项目"
+
+    - name: "幻梦 Illusion 主题"
+      url: "https://github.com/aizexintong/illusion"
+      avatar: "https://illusion.azxt.org/favicon.svg"
+      description: "本站使用的 Hugo 主题，朦胧幻梦、毛玻璃 UI、昼夜双粒子特效"
+      category: "开源项目"
+
+    - name: "黄炼Wiki"
+      url: "https://huanglian.top/blog/"
+      avatar: "https://huanglian.top/blog/logo.png"
+      description: "黄炼的主力博客 —— 系统化的 Java 后端、算法与软考备考笔记"
+      category: "技术博客"
 
 
   # ----- 申请友链区块 -----
@@ -500,29 +486,39 @@ tools:
 
     - name: "开发工具"                       # 分类名称
       icon: "fas fa-code"                    # 分类图标
-      description: "编程开发相关的工具软件"  # 分类描述
+      description: "日常开发用到的编辑器、构建工具与版本管理"  # 分类描述
 
       tools:                                 # 该分类下的工具列表
 
-        - name: "Visual Studio Code"         # 工具名称
-          url: "https://code.visualstudio.com"  # 工具官网或下载地址
-          description: "强大的代码编辑器，支持多种编程语言"  # 工具简要描述
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/visualstudiocode.svg"  # 工具图标 URL，支持 SVG
+        - name: "IntelliJ IDEA"              # 工具名称
+          url: "https://www.jetbrains.com/idea/"  # 工具官网或下载地址
+          description: "Java 开发主力 IDE，插件生态完善"  # 工具简要描述
+          icon: "/images/tool-icons/intellijidea.svg"  # 工具图标 URL，支持 SVG
+
+        - name: "Maven"
+          url: "https://maven.apache.org"
+          description: "Java 项目构建与依赖管理"
+          icon: "/images/tool-icons/apachemaven.svg"
+
+        - name: "Visual Studio Code"
+          url: "https://code.visualstudio.com"
+          description: "强大的代码编辑器，支持多种编程语言"
+          icon: "/images/tool-icons/visualstudiocode.svg"
 
         - name: "Git"
           url: "https://git-scm.com"
           description: "分布式版本控制系统"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/git.svg"
+          icon: "/images/tool-icons/git.svg"
 
         - name: "Docker"
           url: "https://www.docker.com"
           description: "容器化平台"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/docker.svg"
+          icon: "/images/tool-icons/docker.svg"
 
         - name: "Postman"
           url: "https://www.postman.com"
           description: "API 测试和开发工具"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/postman.svg"
+          icon: "/images/tool-icons/postman.svg"
 
 
     - name: "设计工具"
@@ -534,12 +530,12 @@ tools:
         - name: "Figma"
           url: "https://www.figma.com"
           description: "协作式 UI 设计工具"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/figma.svg"
+          icon: "/images/tool-icons/figma.svg"
 
         - name: "Canva"
           url: "https://www.canva.com"
           description: "在线图形设计平台"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/canva.svg"
+          icon: "/images/tool-icons/canva.svg"
 
 
     - name: "效率工具"
@@ -551,17 +547,17 @@ tools:
         - name: "Notion"
           url: "https://www.notion.so"
           description: "全能笔记和知识管理工具"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/notion.svg"
+          icon: "/images/tool-icons/notion.svg"
 
         - name: "Raycast"
           url: "https://raycast.com"
           description: "Mac 效率启动器"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/raycast.svg"
+          icon: "/images/tool-icons/raycast.svg"
 
-        - name: "Obsidian"
-          url: "https://obsidian.md"
-          description: "基于 Markdown 的双向链接笔记"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/obsidian.svg"
+        - name: "思源笔记"
+          url: "https://b3log.org/siyuan/"
+          description: "本地优先的 Markdown 块级笔记，支持双向链接与知识图谱"
+          icon: "/images/tool-icons/siyuan.svg"
 
 
     - name: "在线服务"
@@ -573,43 +569,22 @@ tools:
         - name: "GitHub"
           url: "https://github.com"
           description: "代码托管和协作平台"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg"
+          icon: "/images/tool-icons/github.svg"
 
         - name: "Vercel"
           url: "https://vercel.com"
           description: "前端部署平台"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/vercel.svg"
+          icon: "/images/tool-icons/vercel.svg"
 
         - name: "Cloudflare"
           url: "https://www.cloudflare.com"
           description: "CDN 和网络安全服务"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/cloudflare.svg"
-    - name: "Java 开发"                      # 分类名称
-      icon: "fas fa-mug-hot"                 # 分类图标
-      description: "Java 后端日常开发工具链"  # 分类描述
+          icon: "/images/tool-icons/cloudflare.svg"
 
-      tools:                                 # 该分类下的工具列表
-
-        - name: "IntelliJ IDEA"
-          url: "https://www.jetbrains.com/idea/"
-          description: "Java 开发主力 IDE，插件生态完善"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/intellijidea.svg"
-
-        - name: "Maven"
-          url: "https://maven.apache.org"
-          description: "Java 项目构建与依赖管理"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/apachemaven.svg"
-
-        - name: "Postman"
-          url: "https://www.postman.com"
-          description: "接口调试与 API 测试"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/postman.svg"
-
-        - name: "Git"
-          url: "https://git-scm.com"
-          description: "分布式版本控制系统"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/git.svg"
-
+        - name: "Netlify"
+          url: "https://www.netlify.com"
+          description: "静态站点托管与自动化部署平台"
+          icon: "/images/tool-icons/netlify.svg"
     - name: "数据库与中间件"
       icon: "fas fa-database"
       description: "数据存储、缓存与全文检索"
@@ -619,22 +594,22 @@ tools:
         - name: "MySQL"
           url: "https://www.mysql.com"
           description: "关系型数据库"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/mysql.svg"
+          icon: "/images/tool-icons/mysql.svg"
 
         - name: "Redis"
           url: "https://redis.io"
           description: "内存缓存，常用于缓存与分布式场景"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/redis.svg"
+          icon: "/images/tool-icons/redis.svg"
 
         - name: "Elasticsearch"
           url: "https://www.elastic.co"
           description: "全文检索与日志分析"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/elasticsearch.svg"
+          icon: "/images/tool-icons/elasticsearch.svg"
 
-        - name: "Docker"
-          url: "https://www.docker.com"
-          description: "容器化部署与环境隔离"
-          icon: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/docker.svg"
+        - name: "Nacos"
+          url: "https://nacos.io"
+          description: "动态服务发现、配置管理与服务治理平台"
+          icon: "/images/tool-icons/nacos.png"
 
 
 # ============================================================================
