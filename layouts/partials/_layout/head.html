@@ -3,6 +3,11 @@
 {{- /* 与主题原版的差异：og:image / twitter:image 经 _utils/post-cover.html 解析， */ -}}
 {{- /* 支持 image 写 page bundle 内文件名，并统一转成绝对地址（社交卡片要求绝对 URL）。 */ -}}
 {{- /* ========== 基础元数据 ========== */ -}}
+{{- /* 镜像预览站禁止收录：GitHub Actions 构建 Pages 时会注入 HUGO_PARAMS_NOINDEX=true，
+       Netlify 正式站不注入，因此只有 GitHub Pages 那份带 noindex。 */ -}}
+{{- if eq site.Params.noindex "true" }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ .Site.Params.description | default (i18n "sitedescription") }}">

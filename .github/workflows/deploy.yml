@@ -98,11 +98,29 @@ jobs:
           echo "base=$BASE" >> "$GITHUB_OUTPUT"
 
       - name: 构建站点
+        env:
+          # 本仓库的 GitHub Pages 是正式站（博客.黄炼.site）的镜像预览，
+          # 不希望对搜索引擎可见。Hugo 会把 HUGO_PARAMS_* 映射到 site.Params.*，
+          # 模板据此输出 <meta name="robots" content="noindex, nofollow">。
+          # Netlify 那份构建不注入该变量，因此正式站照常被收录。
+          HUGO_PARAMS_NOINDEX: "true"
         run: |
           hugo --gc --minify --baseURL "${{ steps.baseurl.outputs.base }}"
+
+          # robots.txt 也改成禁止爬取。
+          # noindex 用于让已收录的页面退出索引，robots.txt 用于阻止后续爬取，
+          # 两者配合更稳妥（只靠 robots.txt 无法清除已收录内容）。
+          {
+            echo "# 本站是 https://xn--9krq6q.xn--6pxx59g.site/ 的镜像预览站"
+            echo "# 不希望被搜索引擎收录，正式站请访问上面的地址"
+            echo "User-agent: *"
+            echo "Disallow: /"
+          } > public/robots.txt
+
           echo "---- 产物概览 ----"
           echo "页面数: $(find public -name '*.html' | wc -l)"
           echo "产物大小: $(du -sh public | cut -f1)"
+          echo "noindex 页面数: $(grep -rl 'name=\"robots\"' public --include='*.html' | wc -l)"
 
       - name: 部署到 gh-pages 分支
         uses: peaceiris/actions-gh-pages@v4

@@ -1,0 +1,9 @@
+# 本文件会被 GitHub Actions 在部署到 GitHub Pages 时覆盖为「禁止收录」
+# （那份是 Netlify 正式站的镜像预览站）。详见 .github/workflows/deploy.yml
+User-agent: *
+Allow: /
+
+# 站内搜索结果页无收录价值
+Disallow: /search/
+
+Sitemap: https://xn--9krq6q.xn--6pxx59g.site/sitemap.xml
