@@ -1,5 +1,4 @@
+# 本站是 https://xn--9krq6q.xn--6pxx59g.site/ 的镜像预览站
+# 不希望被搜索引擎收录，正式站请访问上面的地址
 User-agent: *
-Allow: /
-Disallow: /search/
-
-Sitemap: https://azxt.org/sitemap.xml
+Disallow: /
