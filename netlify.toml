@@ -1,0 +1,61 @@
+# =============================================================================
+# Netlify 构建配置
+#
+# 与 GitHub Pages 的关键差异
+# --------------------------
+# GitHub Pages 的项目站点部署在子路径（/illusion-blog/）下，所以那边构建时
+# 必须把 baseURL 设成带子路径的地址。
+# Netlify 部署在**域名根目录**（不管是 xxx.netlify.app 还是绑定的自定义域名），
+# 因此 baseURL 必须是根地址、不能带子路径。
+#
+# 结论：两边的产物不能互相复用。这就是这里选择「从源码重新构建」而不是
+# 「拿 GitHub Pages 的产物直接部署」的原因。
+#
+# 依赖说明
+# --------
+# 显式安装 Hugo extended 与 Dart Sass，而不是用 Netlify 镜像自带的版本，
+# 目的是让本地、GitHub Actions、Netlify 三处的版本完全一致，避免
+# 「本地能构建、线上构建失败」这类问题。
+# Dart Sass 是硬依赖：主题模板写死了 transpiler: "dartsass"，且
+# assets/scss/main.scss 用了 @use "sass:map" 与 map.get()，
+# Hugo extended 内置的 libsass 不支持。
+# =============================================================================
+
+[build]
+  # 构建脚本见 scripts/netlify-build.sh
+  command = "bash ./scripts/netlify-build.sh"
+  publish = "public"
+
+[build.environment]
+  # 升级时改这里即可，脚本会读取这两个变量
+  HUGO_VERSION = "0.167.0"
+  DART_SASS_VERSION = "1.105.1"
+  # 让 Hugo 处于 production 模式（压缩产物、关闭草稿等）
+  HUGO_ENV = "production"
+
+# 站点是纯静态站，关掉 Netlify 的自动资源处理，避免它对已经指纹化的
+# CSS/JS 再做一次无意义的处理
+[build.processing]
+  skip_processing = true
+
+# 缓存头：Hugo 生成的 CSS/JS/字体都带内容哈希，可以长期缓存
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/lib/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# 404 页面交给 Hugo 生成的版本
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
