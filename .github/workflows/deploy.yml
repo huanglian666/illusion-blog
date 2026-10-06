@@ -22,9 +22,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# 推送到 gh-pages 分支需要写权限
+# 推送到 gh-pages 分支需要写权限；pages: read 用于读取 Pages 实际地址
 permissions:
   contents: write
+  pages: read
 
 # 同一时间只跑一个部署；新的推送会取消排队中的旧任务
 concurrency:
@@ -70,22 +71,35 @@ jobs:
           sudo ln -sf /opt/dart-sass/sass /usr/local/bin/sass
           sass --version
 
+      - name: 计算部署地址（baseURL）
+        id: baseurl
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 优先级：仓库变量 SITE_BASE_URL > Pages 实际地址 > github.io 默认地址
+          #
+          # 为什么不能直接用 hugo.toml 里的 baseURL：站点部署在子路径
+          # /<仓库名>/ 下，若 baseURL 写成自定义域名，页面里的 CSS/JS/图片
+          # 等绝对地址会全部指向那个域名，在 github.io 上打开就会散架。
+          # 而读 Pages 实际地址可以自动适配——将来绑了自定义域名，
+          # GitHub 会把 html_url 改成新域名，这里会跟着变，无需改代码。
+          BASE="${{ vars.SITE_BASE_URL }}"
+
+          if [ -z "$BASE" ]; then
+            BASE="$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq '.html_url' 2>/dev/null || echo '')"
+            [ -n "$BASE" ] && BASE="${BASE%/}/"
+          fi
+
+          if [ -z "$BASE" ]; then
+            BASE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
+          fi
+
+          echo "本次构建使用的 baseURL: $BASE"
+          echo "base=$BASE" >> "$GITHUB_OUTPUT"
+
       - name: 构建站点
         run: |
-          # 默认用 hugo.toml 里的 baseURL（自定义域名 博客.黄炼.site）。
-          # 若想临时改用别的地址（比如 GitHub Pages 默认的
-          # https://<用户名>.github.io/<仓库名>/），在仓库
-          # Settings → Secrets and variables → Actions → Variables 里
-          # 新建一个名为 SITE_BASE_URL 的变量即可，无需改代码。
-          BASE="${{ vars.SITE_BASE_URL }}"
-          EXTRA_ARGS=""
-          if [ -n "$BASE" ]; then
-            EXTRA_ARGS="--baseURL $BASE"
-            echo "使用覆盖的 baseURL: $BASE"
-          else
-            echo "使用 hugo.toml 中的 baseURL"
-          fi
-          hugo --gc --minify $EXTRA_ARGS
+          hugo --gc --minify --baseURL "${{ steps.baseurl.outputs.base }}"
           echo "---- 产物概览 ----"
           echo "页面数: $(find public -name '*.html' | wc -l)"
           echo "产物大小: $(du -sh public | cut -f1)"
