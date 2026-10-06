@@ -1,0 +1,45 @@
+{{- /* 幻梦 Illusion v1.1.0 - 正式预览版 */ -}}
+{{- /* 404 错误页面模板（站点级覆盖版，优先级高于主题同名模板）。 */ -}}
+{{- /* 与主题原版的差异：按钮链接不再直接对 "/" 这类前导斜杠路径用 relURL。 */ -}}
+{{- /* Hugo 的 relURL 遇到前导斜杠会当作"域名根目录"，丢掉 baseURL 的子路径， */ -}}
+{{- /* 部署到 GitHub Pages 这类子路径站点后按钮会跳到域名根。 */ -}}
+{{ define "main" }}
+{{- /* 从主题数据获取 404 页配置（图标、文字、按钮等） */ -}}
+{{ $errorData := hugo.Data.theme.error404 | default dict }}
+{{ $page := $errorData.page | default dict }}
+{{ $buttons := $errorData.buttons | default dict }}
+
+{{- /* 把站内绝对路径（以 / 开头）转成会带上 baseURL 子路径的相对地址；
+       外部链接（http 开头）原样保留；首页特判，直接用 site.Home.RelPermalink。 */ -}}
+{{- $homeUrl := $buttons.home.url | default "" -}}
+{{- if not (hasPrefix $homeUrl "http") -}}
+  {{- $homeUrl = cond (or (eq $homeUrl "") (eq $homeUrl "/")) site.Home.RelPermalink (relURL (strings.TrimPrefix "/" $homeUrl)) -}}
+{{- end -}}
+{{- $postsUrl := $buttons.posts.url | default "" -}}
+{{- if not (hasPrefix $postsUrl "http") -}}
+  {{- $postsUrl = relURL (strings.TrimPrefix "/" ($postsUrl | default "posts")) -}}
+{{- end -}}
+
+<div class="section-content" role="main">
+  <div class="container">
+    <section class="page-header" data-aos="fade-up">
+      <div class="error-icon">
+        <i class="{{ $page.icon | default "fas fa-ghost" }}"></i>
+      </div>
+      <h1 class="page-title">{{ $page.title | default "404" }}</h1>
+      <p class="page-description">{{ $page.description | default (i18n "not_found_title") }}</p>
+      <p class="error-message">{{ $page.message | default (i18n "not_found_desc") }}</p>
+      <div class="error-actions">
+        <a href="{{ $homeUrl }}" class="btn btn-primary">
+          <i class="{{ $buttons.home.icon | default "fas fa-home" }}"></i>
+          {{ $buttons.home.text | default (i18n "btn_back_home") }}
+        </a>
+        <a href="{{ $postsUrl }}" class="btn btn-secondary">
+          <i class="{{ $buttons.posts.icon | default "fas fa-file-alt" }}"></i>
+          {{ $buttons.posts.text | default (i18n "btn_browse") }}
+        </a>
+      </div>
+    </section>
+  </div>
+</div>
+{{ end }}

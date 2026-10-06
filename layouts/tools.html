@@ -23,10 +23,13 @@
         <div class="tools-grid">
           {{ range .tools }}
           <a href="{{ .url }}" class="tool-card" target="_blank" rel="noopener nofollow" data-aos="zoom-in">
+            {{- /* 图标地址若是站内路径（/ 开头），先补上 baseURL 子路径 */ -}}
+            {{- $icon := .icon -}}
+            {{- if hasPrefix $icon "/" }}{{ $icon = partial "_utils/site-url.html" $icon }}{{ end -}}
             {{- /* 判断图标类型：http 外链或 / 站内路径当作图片，其余当作字体图标类名 */ -}}
             <div class="tool-icon">
-              {{- if or (hasPrefix .icon "http") (hasPrefix .icon "/") -}}<img src="{{ .icon }}" alt="{{ .name }}" loading="lazy">
-              {{- else -}}<i class="{{ .icon }}"></i>{{- end -}}
+              {{- if or (hasPrefix $icon "http") (hasPrefix $icon "/") -}}<img src="{{ $icon }}" alt="{{ .name }}" loading="lazy">
+              {{- else -}}<i class="{{ $icon }}"></i>{{- end -}}
             </div>
             <div class="tool-content">
               <h3 class="tool-name">{{ .name }}</h3>

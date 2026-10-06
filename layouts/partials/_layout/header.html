@@ -1,0 +1,49 @@
+{{- /* 幻梦 Illusion v1.1.0 - 正式预览版 */ -}}
+{{- /* 全局页头模板（站点级覆盖版，优先级高于主题同名模板）。 */ -}}
+{{- /* 与主题原版的差异：站名链接改用 site.Home.RelPermalink。 */ -}}
+{{- /* 主题原版写的是 {{ "/" | relURL }}，Hugo 的 relURL 遇到前导斜杠会把它 */ -}}
+{{- /* 当作"域名根目录"，从而丢掉 baseURL 里的子路径——部署到 GitHub Pages */ -}}
+{{- /* 这类子路径站点后，点站名会跳到域名根而不是博客首页。 */ -}}
+<header class="site-header" role="banner">
+  <div class="container">
+    <div class="header-content">
+      {{- /* 站点品牌：站点名称和副标题 */ -}}
+      <div class="site-brand">
+        <a href="{{ site.Home.RelPermalink }}" class="site-title">{{ site.Title }}</a>
+        <div class="site-subtitle">{{ i18n "header_subtitle" }}</div>
+      </div>
+
+      {{- /* 桌面端主导航 */ -}}
+      <nav class="main-nav" aria-label="{{ i18n "a11y_header_main_nav" }}">
+        {{ partial "_layout/menu.html" (dict "menuID" "main" "page" .) }}
+      </nav>
+
+      {{- /* 移动端汉堡菜单按钮 */ -}}
+      <div class="header-actions">
+        <button class="mobile-menu-toggle" aria-label="{{ i18n "btn_open_menu" }}" aria-expanded="false" aria-controls="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+{{- /* ========== 移动端侧滑菜单（默认隐藏） ========== */ -}}
+<div class="mobile-menu-overlay" id="mobile-menu-overlay" role="presentation" aria-hidden="true"></div>
+<nav class="mobile-menu" id="mobile-menu" aria-label="{{ i18n "a11y_header_mobile_nav" }}" aria-hidden="true">
+  <button class="mobile-menu-close" aria-label="{{ i18n "btn_close_menu" }}" aria-controls="mobile-menu">
+    <i class="fas fa-times"></i>
+  </button>
+  {{- /* 移动端菜单内容：主导航链接 */ -}}
+  {{ partial "_layout/menu.html" (dict "menuID" "main" "page" .) }}
+  {{- /* 移动端菜单底部：社交媒体链接 */ -}}
+  <div class="mobile-menu-footer">
+    <div class="social-links" role="list" aria-label="{{ i18n "a11y_header_social_links" }}">
+      {{- range (hugo.Data.theme.social).links -}}
+        {{- if and .show .url -}}
+      <a href="{{ partial "_utils/site-url.html" .url }}" class="social-link" target="_blank" rel="noopener nofollow" aria-label="{{ .label }}"><i class="{{ .icon }}"></i></a>
+        {{- end -}}
+      {{- end -}}
+    </div>
+  </div>
+</nav>

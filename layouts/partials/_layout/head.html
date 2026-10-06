@@ -13,8 +13,10 @@
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 
 {{- /* 站点图标：由个人头像居中裁方后生成，源图见 static/images/avatar.jpg */ -}}
-<link rel="icon" type="image/png" sizes="32x32" href="{{ "/favicon-32.png" | relURL }}">
-<link rel="apple-touch-icon" sizes="180x180" href="{{ "/apple-touch-icon.png" | relURL }}">
+{{- /* 注意路径不要写前导斜杠：Hugo 的 relURL 遇到前导斜杠会把它当作"域名根目录"， */ -}}
+{{- /* 从而丢掉 baseURL 里的子路径，部署到 GitHub Pages 这类子路径站点时图标会 404。 */ -}}
+<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32.png" | relURL }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | relURL }}">
 
 {{- /* ========== 资源预连接和 DNS 预解析 ========== */ -}}
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -39,8 +41,12 @@
 {{- $assets := hugo.Data.theme.assets -}}
 {{- $ogImage := $assets.avatar.url | default "https://t.alcy.cc/tx" -}}
 {{- if .IsPage }}{{ with (partial "_utils/post-cover.html" .) }}{{ $ogImage = . }}{{ end }}{{ end -}}
-{{- /* 社交卡片要求绝对 URL：站内路径用 absURL 补全，外部地址保持原样 */ -}}
-{{- if not (hasPrefix $ogImage "http") }}{{ $ogImage = $ogImage | absURL }}{{ end }}
+{{- /* 社交卡片要求绝对 URL。注意这里不能用 absURL：absURL 与 relURL 一样， */ -}}
+{{- /* 遇到前导斜杠会丢掉 baseURL 里的子路径。先用 site-url 规范化成带子路径的 */ -}}
+{{- /* 相对地址，再拼上站点主机名。 */ -}}
+{{- if not (hasPrefix $ogImage "http") -}}
+  {{- $ogImage = printf "%s%s" (strings.TrimSuffix "/" site.BaseURL) (partial "_utils/site-url.html" $ogImage) -}}
+{{- end }}
 
 <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
 <meta property="og:description" content="{{ .Description | default .Site.Params.description }}">

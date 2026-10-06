@@ -1,0 +1,24 @@
+{{- /* 把"站内路径"规范化成会带上 baseURL 子路径的地址。
+ *
+ * 传入：一个路径字符串，例如 "/posts"、"posts"、"/images/avatar.jpg" 或完整外链
+ * 返回：可用于 href/src 的地址
+ *
+ * 为什么需要它：
+ *   Hugo 的 relURL 遇到**前导斜杠**会把路径当作"从域名根目录算起"，
+ *   从而丢掉 baseURL 里的子路径。站点部署在
+ *   https://<user>.github.io/<repo>/ 这类子路径下时，
+ *   写 "/tags/x" 会解析到域名根而 404；
+ *   而 data/theme.yaml 里的 url 字段很多都带前导斜杠。
+ *   本 partial 统一去掉前导斜杠后再交给 relURL，两种部署位置都正确。
+ *
+ * 外部链接（http/https 开头）原样返回，不做处理。
+ */ -}}
+{{- $p := . | default "/" -}}
+{{- if hasPrefix $p "http" -}}
+  {{- return $p -}}
+{{- end -}}
+{{- $p = strings.TrimPrefix "/" $p -}}
+{{- if eq $p "" -}}
+  {{- return site.Home.RelPermalink -}}
+{{- end -}}
+{{- return ($p | relURL) -}}

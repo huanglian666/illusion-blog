@@ -1,0 +1,11 @@
+{{- /* Markdown 链接渲染钩子（站点级覆盖）。 */ -}}
+{{- /* 作用：把正文里以 / 开头的站内链接规范化，使其带上 baseURL 的子路径。 */ -}}
+{{- /* 例如部署在 https://<user>.github.io/<repo>/ 时， */ -}}
+{{- /* 正文写的 [分治法](/posts/分治法/) 会输出成 /posts/分治法/ 而 404； */ -}}
+{{- /* 经本钩子处理后变成 /<repo>/posts/分治法/。 */ -}}
+{{- /* 外部链接（http 开头）与锚点（# 开头）原样保留。 */ -}}
+{{- $dest := .Destination -}}
+{{- if and (hasPrefix $dest "/") (not (hasPrefix $dest "//")) -}}
+  {{- $dest = partial "_utils/site-url.html" $dest -}}
+{{- end -}}
+<a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>

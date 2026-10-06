@@ -33,13 +33,15 @@
           <p class="hero-description">{{ $hero.description | default (i18n "home_badge") }}</p>
           {{- /* CTA 按钮组 */ -}}
           <div class="hero-actions">
+            {{- /* 按钮地址经 _utils/site-url.html 规范化：data/theme.yaml 里写的是 "/posts" */ -}}
+            {{- /* 这类根路径，直接用会在子路径部署下跳到域名根，这里统一补上子路径。 */ -}}
             {{ with $hero.primaryBtn }}
-            <a href="{{ .url | default "/posts" }}" class="btn btn-primary btn-anime">
+            <a href="{{ partial "_utils/site-url.html" (.url | default "/posts") }}" class="btn btn-primary btn-anime">
               <i class="fas fa-book-open"></i> {{ .text | default (i18n "btn_read_article") }}
             </a>
             {{ end }}
             {{ with $hero.secondaryBtn }}
-            <a href="{{ .url | default "/about" }}" class="btn btn-secondary btn-anime">
+            <a href="{{ partial "_utils/site-url.html" (.url | default "/about") }}" class="btn btn-secondary btn-anime">
               <i class="fas fa-heart"></i> {{ .text | default (i18n "btn_about_me") }}
             </a>
             {{ end }}
