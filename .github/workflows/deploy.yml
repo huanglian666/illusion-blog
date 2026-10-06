@@ -1,0 +1,101 @@
+# =============================================================================
+# 构建 Hugo 站点并部署到 GitHub Pages（gh-pages 分支）
+#
+# 触发：推送到 main 分支，或在 Actions 页面手动触发（workflow_dispatch）。
+#
+# 前置条件（仓库设置里做一次即可）：
+#   1. Settings → Pages → Build and deployment → Source 选 "Deploy from a branch"，
+#      分支选 gh-pages，目录选 / (root)。
+#   2. 如果之后要绑自定义域名，在本工作流同级加 static/CNAME 文件，
+#      或在 Pages 设置里填域名。
+#
+# 为什么需要 Dart Sass：
+#   主题模板写死了 transpiler: "dartsass"，且 assets/scss/main.scss 用了
+#   @use "sass:map" 与 map.get()，Hugo extended 内置的 libsass 不支持，
+#   不装会直接报 TOCSS-DART: failed to transform。
+# =============================================================================
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# 推送到 gh-pages 分支需要写权限
+permissions:
+  contents: write
+
+# 同一时间只跑一个部署；新的推送会取消排队中的旧任务
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      # 与本地保持一致，升级时改这一处即可
+      HUGO_VERSION: "0.167.0"
+      DART_SASS_VERSION: "1.105.1"
+
+    steps:
+      - name: 检出仓库（含主题 submodule）
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          # enableGitInfo = true，靠 git 历史计算文章最后更新时间，需要完整历史
+          fetch-depth: 0
+
+      - name: 安装 Hugo（extended 版）
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: 缓存 Dart Sass
+        uses: actions/cache@v4
+        with:
+          path: /opt/dart-sass
+          key: dart-sass-${{ env.DART_SASS_VERSION }}
+
+      - name: 安装 Dart Sass
+        run: |
+          if [ ! -x /opt/dart-sass/sass ]; then
+            curl -sL -o /tmp/dart-sass.tar.gz \
+              "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+            tar -xzf /tmp/dart-sass.tar.gz -C /tmp
+            sudo cp -r /tmp/dart-sass /opt/dart-sass
+          fi
+          sudo ln -sf /opt/dart-sass/sass /usr/local/bin/sass
+          sass --version
+
+      - name: 构建站点
+        run: |
+          # 默认用 hugo.toml 里的 baseURL（自定义域名 博客.黄炼.site）。
+          # 若想临时改用别的地址（比如 GitHub Pages 默认的
+          # https://<用户名>.github.io/<仓库名>/），在仓库
+          # Settings → Secrets and variables → Actions → Variables 里
+          # 新建一个名为 SITE_BASE_URL 的变量即可，无需改代码。
+          BASE="${{ vars.SITE_BASE_URL }}"
+          EXTRA_ARGS=""
+          if [ -n "$BASE" ]; then
+            EXTRA_ARGS="--baseURL $BASE"
+            echo "使用覆盖的 baseURL: $BASE"
+          else
+            echo "使用 hugo.toml 中的 baseURL"
+          fi
+          hugo --gc --minify $EXTRA_ARGS
+          echo "---- 产物概览 ----"
+          echo "页面数: $(find public -name '*.html' | wc -l)"
+          echo "产物大小: $(du -sh public | cut -f1)"
+
+      - name: 部署到 gh-pages 分支
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          # 生成的 .nojekyll 会阻止 GitHub Pages 走 Jekyll 处理，
+          # 否则以下划线开头的文件会被忽略
+          enable_jekyll: false
