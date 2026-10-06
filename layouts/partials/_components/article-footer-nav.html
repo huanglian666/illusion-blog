@@ -1,0 +1,37 @@
+{{- /* 幻梦 Illusion v1.1.0 - 正式预览版 */ -}}
+{{- /* 文章底部导航组件（站点级覆盖版，优先级高于主题同名模板）。 */ -}}
+{{- /* 与主题原版的差异：相关推荐的缩略图经 _utils/post-cover.html 解析。 */ -}}
+{{- /* 计算相关文章推荐数量：缺少上/下篇时显示 3 篇推荐，否则显示 2 篇 */ -}}
+{{ $relCount := 2 }}
+{{ if or (not .PrevInSection) (not .NextInSection) }}{{ $relCount = 3 }}{{ end }}
+{{- /* 获取相关文章（按内容相关性排序） */ -}}
+{{ $related := where (.Site.RegularPages.Related .) "Type" "posts" | first $relCount }}
+
+<div class="post-footer-nav">
+  <div class="post-footer-flex">
+    {{- /* 上一篇文章 */ -}}
+    {{ with .PrevInSection }}
+    <a href="{{ .RelPermalink }}" class="nav-card nav-prev">
+      <span class="nav-card-label">{{ i18n "post_prev" }}</span>
+      <span class="nav-card-title">{{ .Title }}</span>
+    </a>
+    {{ end }}
+
+    {{- /* 相关推荐阅读 */ -}}
+    {{ range $related }}
+    {{- $cover := partial "_utils/post-cover.html" . -}}
+    <a href="{{ .RelPermalink }}" class="nav-card nav-prev">
+      {{ if $cover }}<div class="nav-rel-img"><img src="{{ $cover }}" alt="" loading="lazy"/></div>{{ end }}
+      <span class="nav-card-title">{{ .Title }}</span>
+    </a>
+    {{ end }}
+
+    {{- /* 下一篇文章 */ -}}
+    {{ with .NextInSection }}
+    <a href="{{ .RelPermalink }}" class="nav-card nav-next">
+      <span class="nav-card-label">{{ i18n "post_next" }}</span>
+      <span class="nav-card-title">{{ .Title }}</span>
+    </a>
+    {{ end }}
+  </div>
+</div>

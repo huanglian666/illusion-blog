@@ -6,7 +6,7 @@ tags: ["街霸", "角色资料"]
 categories: ["生活与兴趣"]
 weight: 21
 description: "不知火舞不仅是《饿狼传说》与《拳皇》系列的看板娘，更是格斗游戏史上最具代表性的女性角色之一。"
-image: "https://t.alcy.cc/ycy?random=2"
+image: "a4df2d3a-7b5f-4db8-bfa9-eac8ff3d680d.png"
 ---
 
 ### 一、 角色生涯简介：格斗界的红枫

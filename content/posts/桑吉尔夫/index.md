@@ -6,7 +6,7 @@ tags: ["街霸", "角色资料"]
 categories: ["生活与兴趣"]
 weight: 23
 description: "桑吉尔夫是格斗游戏史上最著名的​投技角色（Grappler） 。他参加格斗大赛的目的极其纯粹：展示俄罗斯民族伟大的肉体力量，并以此鼓舞祖国的民众。"
-image: "https://t.alcy.cc/ycy?random=11"
+image: "EgfJep.png"
 ---
 
 ### 一、 角色生涯简介：为了祖国的肉体美

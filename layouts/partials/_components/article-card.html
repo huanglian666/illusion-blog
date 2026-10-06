@@ -1,0 +1,75 @@
+{{- /* 幻梦 Illusion v1.1.0 - 正式预览版 */ -}}
+{{- /* 文章卡片组件（站点级覆盖版，优先级高于主题同名模板）。 */ -}}
+{{- /* 与主题原版的差异：封面地址经 _utils/post-cover.html 解析， */ -}}
+{{- /* 支持 image 直接写 page bundle 内的图片文件名（如 "cover.png"）。 */ -}}
+{{- /*
+  参数:
+    .Page          - 页面对象 (必填)
+    .Style         - "grid" 网格布局 (默认) | "list" 列表布局
+    .ExcerptLength - 摘要截取长度 (默认 80 字符)
+    .ShowImage     - 是否显示封面图 (默认 true)
+    .Index         - 列表索引，用于交替布局 (可选)
+*/ -}}
+{{- $page := .Page -}}
+{{- $style := .Style | default "grid" -}}
+{{- $excerptLen := .ExcerptLength | default 80 -}}
+{{- $showImage := ne (.ShowImage | default true) false -}}
+{{- $cover := partial "_utils/post-cover.html" $page -}}
+
+{{- /* ========== 网格布局风格 ========== */ -}}
+{{- if eq $style "grid" -}}
+<article class="post-card" role="listitem">
+  {{- /* 封面图区域 */ -}}
+  {{ if and $showImage $cover }}
+  <div class="post-image">
+    <img src="{{ $cover }}" alt="{{ $page.Title }}" loading="lazy" width="400" height="200"/>
+    <div class="post-image-overlay"></div>
+    {{ if $page.Params.categories }}<span class="post-category">{{ index $page.Params.categories 0 }}</span>{{ end }}
+  </div>
+  {{ end }}
+  {{- /* 文章内容区域 */ -}}
+  <div class="post-content">
+    <h3 class="post-title" title="{{ $page.Title }}">
+      <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+    </h3>
+    {{- /* 元数据：日期和阅读时间 */ -}}
+    {{ partial "_components/post-meta.html" (dict "Page" $page) }}
+    {{- /* 文章标签（最多 4 个） */ -}}
+    {{ partial "_components/post-terms.html" (dict "Page" $page "Taxonomy" "tags" "Limit" 4) }}
+    <div class="post-excerpt">
+      {{ with $page.Description }}{{ . | plainify | truncate $excerptLen }}{{ else }}{{ $page.Summary | plainify | truncate $excerptLen }}{{ end }}
+    </div>
+    <a href="{{ $page.RelPermalink }}" class="read-more">
+      <span>{{ i18n "btn_read_more" }}</span>
+      <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+</article>
+{{- /* ========== 列表布局风格 ========== */ -}}
+{{- else -}}
+<article class="post-item{{ if and $showImage $cover (eq (mod .Index 2) 1) }} reverse{{ end }}" role="listitem">
+  {{ if and $showImage $cover }}
+  <div class="post-item-image">
+    <img src="{{ $cover }}" alt="{{ $page.Title }}" loading="lazy" width="400" height="200" />
+    <div class="post-image-overlay"></div>
+    {{ if $page.Params.categories }}<span class="post-category">{{ index $page.Params.categories 0 }}</span>{{ end }}
+  </div>
+  {{ end }}
+  <div class="post-item-content">
+    <h3 class="post-title" title="{{ $page.Title }}">
+      <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+    </h3>
+    {{- /* 元数据：日期和阅读时间 */ -}}
+    {{ partial "_components/post-meta.html" (dict "Page" $page) }}
+    {{- /* 文章标签（最多 4 个） */ -}}
+    {{ partial "_components/post-terms.html" (dict "Page" $page "Taxonomy" "tags" "Limit" 4) }}
+    <div class="post-excerpt">
+      {{ with $page.Description }}{{ . | plainify | truncate $excerptLen }}{{ else }}{{ $page.Summary | plainify | truncate $excerptLen }}{{ end }}
+    </div>
+    <a href="{{ $page.RelPermalink }}" class="read-more">
+      <span>{{ i18n "btn_read_more" }}</span>
+      <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+</article>
+{{- end -}}

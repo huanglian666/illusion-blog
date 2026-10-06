@@ -1,0 +1,16 @@
+{{- /* 解析文章封面地址，供列表页与文章页共用。
+ *
+ * 传入：Page 对象
+ * 返回：封面图的 URL；没配 image 时返回空串
+ *
+ * 解析顺序：
+ *   1. 若 image 的值能在本页的 page bundle 里找到同名资源（如 image: "cover.png"），
+ *      用它的 RelPermalink —— 这样列表页也能拿到正确路径，
+ *      直接写相对文件名在列表页会相对于 /posts/ 解析而 404。
+ *   2. 找不到就原样返回，兼容外部 URL（如随机图接口）和站内绝对路径（如 /images/x.png）。
+ */ -}}
+{{- $img := .Params.image -}}
+{{- if $img -}}
+  {{- with .Resources.GetMatch $img -}}{{ $img = .RelPermalink }}{{- end -}}
+{{- end -}}
+{{- return $img -}}
