@@ -2,7 +2,7 @@
 
 基于 **Hugo** + [幻梦 Illusion](https://github.com/aizexintong/illusion) 主题构建的个人博客站点。
 
-线上地址：<https://huanglian.top>
+线上地址：<https://博客.黄炼.site>（punycode：`xn--9krq6q.xn--6pxx59g.site`）
 
 ## 目录结构
 

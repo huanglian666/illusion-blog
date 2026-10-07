@@ -459,8 +459,8 @@ friends:
 
     siteInfo:                                # 本站信息，方便申请者填写
       name: "淬炼笔记"               # 本站名称
-      url: "https://huanglian.top"               # 本站网址
-      description: "黄炼的个人博客 —— Java 后端、算法与设计模式、软考备考笔记"  # 本站描述
+      url: "https://博客.黄炼.site"               # 本站网址（与 hugo.toml 的 params.domain 一致）
+      description: "黄炼的个人博客 —— 算法设计与分析、街霸 6 角色攻略与家庭组网笔记"  # 本站描述
 
     contactTitle: "联系方式"                  # 联系方式区块标题
     contactDescription: "如果你符合条件并希望交换链接，请通过以下方式联系："  # 联系方式引导语
