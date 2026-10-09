@@ -317,7 +317,7 @@ home_posts_subtitle:
 home_about_title:
   other: "关于{{ .Author }}"
 home_about_desc:
-  other: "一名热爱技术的开发者，专注于前端开发、移动应用和新兴技术。"
+  other: "一名 Java 后端开发者，平时喜欢把学到的东西整理成笔记。"
 home_articles_count:
   other: "篇文章"
 home_tags_count:
@@ -337,7 +337,7 @@ home_tech_stack_subtitle:
 footer_about:
   other: "关于我"
 footer_about_desc:
-  other: "{{ .Author }}，一名热爱技术的开发者。专注于前端开发、移动应用和新兴技术。"
+  other: "{{ .Author }}，一名 Java 后端开发者。平时喜欢把学到的东西整理成笔记，也记录一些生活里的折腾和兴趣。"
 footer_quick_links:
   other: "快速链接"
 footer_tech_stack:
