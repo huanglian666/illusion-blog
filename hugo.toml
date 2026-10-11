@@ -78,6 +78,11 @@ enableGitInfo = true
   enableOpenGraph = true
   enableTwitterCards = true
 
+  # ----- 搜索引擎站点验证 -----
+  # 各搜索引擎站长平台验证站点所有权用的 meta content 值，留空则不输出对应 meta 标签。
+  # baiduSiteVerification: 百度搜索资源平台的验证码，即 <meta name="baidu-site-verification"> 的 content。
+  baiduSiteVerification = "codeva-Vium4jkLBK"
+
   # ----- 评论系统配置 -----
   # 选择并配置网站的评论系统。commentsProvider 指定当前使用的评论平台，
   # 可选值: disqus | utterances | giscus | twikoo | waline | artalk

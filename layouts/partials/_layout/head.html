@@ -14,6 +14,11 @@
 <meta name="author" content="{{ .Site.Params.author | default (i18n "siteauthor") }}">
 <meta name="keywords" content="{{ .Site.Params.keywords | default (i18n "sitekeywords") }}">
 
+{{- /* 百度搜索资源平台站点验证：content 取 hugo.toml [params] 的 baiduSiteVerification，未配置则不输出 */ -}}
+{{- with .Site.Params.baiduSiteVerification }}
+<meta name="baidu-site-verification" content="{{ . }}">
+{{- end }}
+
 {{- /* 根据页面类型动态设置标题：首页只显示站点名，其他页面为 "页面标题 | 站点名" */ -}}
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 
