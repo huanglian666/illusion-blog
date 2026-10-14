@@ -1,5 +1,5 @@
 ---
-title: "🤖 Claude Code 上手指南：安装配置、cc-switch 切换与常用命令"
+title: "🤖 Claude Code 上手指南"
 date: 2026-10-14T11:30:00+08:00
 lastmod: 2026-10-14T20:50:00+08:00
 tags: ["AI", "工具指南", "AGENT"]
@@ -13,8 +13,7 @@ image: "image.png"
 
 Claude Code 是 Anthropic 官方的**终端 AI 编程助手**：它运行在命令行里，能读写你项目里的文件、执行 shell 命令、跑测试、提交 Git，把「描述需求 → 改代码 → 验证」整个闭环收在终端里完成。
 
-> 本文写作时的版本：**2.1.287**，macOS + zsh 环境。其他平台命令会单独标注。
->
+> 本文写作时的版本：**2.1.287**，macOS + zsh 环境。
 
 ### 2. 安装
 
