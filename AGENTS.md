@@ -10,7 +10,7 @@
 | --- | --- |
 | 线上地址 | <https://博客.黄炼.site>（punycode `xn--9krq6q.xn--6pxx59g.site`） |
 | 仓库 | `git@github.com:huanglian666/illusion-blog.git`，分支 `main` |
-| 文章数 | 18 篇 |
+| 文章数 | 19 篇 |
 
 > **域名别搞混**：`huanglian.top` 服务的是另一个 VuePress 站（`../vuepress-starter`），不是本站。本站自己的域名以 `hugo.toml` 的 `params.domain` 为准。
 
@@ -46,7 +46,8 @@ You need to install Dart Sass ...
 ```
 ├── hugo.toml             # 站点配置（[params] 里有 author/domain/功能开关/评论系统等）
 ├── content/
-│   ├── posts/<slug>/     # 文章（page bundle，图片放同目录）
+│   ├── posts/<领域>/<slug>/  # 文章（按领域分组的 page bundle，图片放同目录）
+│   │   ├── 算法/ 街霸/ 工具/ 生活/
 │   └── *.md              # 单页：about / skills / links / tools / archives / privacy / terms
 ├── data/theme.yaml       # 主题数据：首页 hero、关于、技能、友链、工具、站点信息
 ├── i18n/zh-CN.yaml       # 界面文案兜底
@@ -70,9 +71,11 @@ You need to install Dart Sass ...
 
 ## 核心约定
 
-### 1. 文章是 page bundle
+### 1. 文章是 page bundle，按领域分子目录
 
-`content/posts/<slug>/index.md`，图片直接放同目录、相对路径引用。
+`content/posts/<领域>/<slug>/index.md`，领域目录为 `算法` / `街霸` / `工具` / `生活`，图片直接放文章同目录、相对路径引用。
+
+**移动文章必须加 aliases**：URL 跟随目录路径，移动旧文章会改变其 URL。每篇被移动的文章 front matter 里都保留了指向旧地址的 `aliases: ["/posts/<旧slug>/"]`（Hugo 会在旧路径生成 meta refresh 跳转页）。新建文章放对目录即可，无需 aliases。
 
 ### 2. 标签体系分三层
 
