@@ -1,0 +1,29 @@
+{{- /* 站点级 RSS 覆盖模板：Hugo 内置 rss.xml 按默认（weight）顺序输出， */ -}}
+{{- /* 这里统一改为按最后更新时间倒序，与文章列表页排序保持一致。 */ -}}
+{{- /* 文章未写 lastmod 时，Hugo 自动回退用 date 作为 lastmod。 */ -}}
+{{- /* 首页 feed 的 .Data.Pages 只含根级单页（about/privacy 等），改为输出全部 posts 文章。 */ -}}
+{{- $pages := .Data.Pages.ByLastmod.Reverse -}}
+{{ if eq .Kind "home" }}{{ $pages = (where site.RegularPages "Type" "posts").ByLastmod.Reverse }}{{ end }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ if eq .Title site.Title }}{{ site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>Recent content {{ if ne .Title site.Title }}{{ with .Title }}in {{ . }} {{ end }}{{ end }}on {{ site.Title }}</description>
+    <generator>Hugo</generator>
+    <language>{{ site.Language.Locale }}</language>
+    {{ with site.Copyright }}<copyright>{{ . }}</copyright>{{ end }}
+    {{ with .OutputFormats.Get "RSS" }}
+      <atom:link href="{{ .Permalink }}" rel="self" type="{{ .MediaType }}" />
+    {{ end }}
+    {{ with $pages }}<lastBuildDate>{{ (index $pages 0).Lastmod.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>{{ end }}
+    {{ range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ .Summary | plainify | html }}</description>
+    </item>
+    {{ end }}
+  </channel>
+</rss>

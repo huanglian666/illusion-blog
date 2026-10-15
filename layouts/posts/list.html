@@ -12,8 +12,8 @@
   ) }}
 
   <div class="container">
-    {{- /* 每页显示 10 篇文章 */ -}}
-    {{ $paginator := .Paginate .Pages 10 }}
+    {{- /* 每页显示 10 篇文章；显式按最后更新时间倒序（Hugo 默认按 weight 排序；文章未写 lastmod 时自动回退用 date） */ -}}
+    {{ $paginator := .Paginate (.Pages.ByLastmod.Reverse) 10 }}
     <div class="posts-layout">
         {{- /* 文章主区域 */ -}}
         <div class="posts-main">

@@ -1,5 +1,4 @@
-{{- /* 站点级覆盖版（优先级高于主题同名模板）：以下改动仅为了让站内链接在子路径部署下也正确。 */ -}}
-{{- /* 幻梦 Illusion v1.1.0 - 正式预览版 */ -}}
+{{- /* 站点级覆盖版（优先级高于主题同名模板）：以下改动仅为了让站内链接在子路径部署下也正确；并显式按日期倒序取最新文章。 */ -}}
 {{- /* 首页"最新文章"板块组件：展示指定数量的最新文章（默认 6 篇），含查看更多按钮 */ -}}
 {{- /* 从主题数据获取配置 */ -}}
 {{- $homeData := hugo.Data.theme.home | default dict -}}
@@ -14,7 +13,8 @@
       <p class="section-subtitle">{{ $postsData.subtitle | default (i18n "home_posts_subtitle") }}</p>
     </div>
     <div class="posts-grid" role="list">
-      {{ range $index, $page := first $postCount (where site.RegularPages "Type" "posts") }}
+      {{- /* 站点级覆盖：显式按发布日期倒序取最新文章（Hugo 默认按 weight 排序） */ -}}
+      {{ range $index, $page := first $postCount (where site.RegularPages "Type" "posts").ByDate.Reverse }}
       <div data-aos="fade-up" data-aos-delay="{{ mul $index 100 }}">
         {{ partial "_components/article-card.html" (dict "Page" $page "Style" "grid" "ExcerptLength" 80 "Index" $index) }}
       </div>
