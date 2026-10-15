@@ -1,7 +1,7 @@
 ---
 title: "⌨️ Bash 与 Zsh 对比及命令行生存指南"
 date: 2026-10-15T09:40:00+08:00
-lastmod: 2026-10-15T09:40:00+08:00
+lastmod: 2026-10-15T11:14:14+08:00
 tags: ["命令行工具", "工具指南"]
 categories: ["命令行工具"]
 weight: 13
@@ -528,13 +528,133 @@ curl -I https://google.com # 2xx/3xx 说明流量已经走通
 
 ---
 
-### 7. 总结
+### 7. 附录：本机当前配置参考
+
+这一节是我自己机器上正在跑的真实配置，作为前文知识点的落地示例——可以直接抄去改。
+
+#### 7.1 Zsh：Oh My Zsh + spaceship
+
+三个启动配置文件各司其职：
+
+| 文件 | 职责 | 我的内容 |
+| --- | --- | --- |
+| `~/.zshenv` | 所有 zsh 会话必读，放最基础的环境变量 | 目前为空 |
+| `~/.zprofile` | 仅登录 shell 读，放 PATH 类初始化 | Homebrew（`brew shellenv`）、Rust（`~/.cargo/env`） |
+| `~/.zshrc` | 交互式会话读，放主题、插件、别名、函数 | 主体配置，见下 |
+
+`.zshrc` 框架部分只动了三处，其余保持 oh-my-zsh 模板默认：
+
+```bash
+# 主题：spaceship（外部主题，见下方安装命令）
+ZSH_THEME="spaceship"
+
+# 插件：语法高亮放最后一个（呼应 3.5 节的加载顺序说明）
+plugins=(git
+         zsh-autosuggestions
+         zsh-syntax-highlighting
+         )
+
+source $ZSH/oh-my-zsh.sh
+```
+
+两个外部插件和 spaceship 主题都不随 oh-my-zsh 自带，手动 clone 到 `custom/`：
+
+```bash
+# 主题装到 custom/themes/（目录名必须是 spaceship-prompt）
+git clone https://github.com/spaceship-prompt/spaceship-prompt.git \
+  "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" \
+  "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
+# 插件装到 custom/plugins/
+git clone https://github.com/zsh-users/zsh-autosuggestions \
+  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+`.zshrc` 末尾的个人配置分三块：
+
+```bash
+# ① 转发 source ~/.bash_profile：让 bash 和 zsh 共享同一份 PATH/别名，
+#    改一处两边生效（注意 bash_profile 里别写 zsh 才认的语法）
+source ~/.bash_profile
+
+# ② Bitwarden SSH Agent：套接字存在才接管 SSH_AUTH_SOCK，
+#    Bitwarden 未登录时不影响普通 ssh
+SOCK_PATH="$HOME/.bitwarden-ssh-agent.sock"
+if [ -S "$SOCK_PATH" ]; then
+  export SSH_AUTH_SOCK="$SOCK_PATH"
+fi
+
+# ③ Java 多版本切换：jdk 8 / jdk 21 一键切换
+export JAVA_8_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_21_HOME=$(/usr/libexec/java_home -v 21)
+jdk() {
+    case $1 in
+        8)  export JAVA_HOME=$JAVA_8_HOME ;;
+        21) export JAVA_HOME=$JAVA_21_HOME ;;
+        *)  echo "用法: jdk [8|21]"; return 1 ;;
+    esac
+    export PATH="$JAVA_HOME/bin:$PATH"
+    echo "已切换到 Java $1: $JAVA_HOME"
+    java -version
+}
+```
+
+<div class="callout callout-note">
+<div class="callout-title"><i class="fas fa-circle-info"></i> 两个细节</div>
+<div class="callout-body">
+
+- `$(/usr/libexec/java_home -v ...)` 是 macOS 专属，Linux 上要换成自己的 JDK 路径。
+- 曾手动 `source zsh-syntax-highlighting.zsh` 的写法已注释掉——插件机制加载过后再 source 会双份加载，反而拖慢启动。
+
+</div>
+</div>
+
+#### 7.2 Vim：vim-plug + Dracula
+
+`.vimrc` 很短，全文如下：
+
+```vim
+" 基础：行号 + 语法高亮
+set number
+syntax on
+
+" 插件管理：vim-plug（安装：curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim）
+call plug#begin('~/.vim/plugged')
+Plug 'sheerun/vim-polyglot'                  " 主流语言语法包合集，一个顶 N 个
+Plug 'dracula/vim', { 'as': 'dracula' }      " Dracula 配色（与 iTerm2 主题统一）
+call plug#end()
+
+" 配色设置：真彩色 + Dracula
+set termguicolors       " iTerm2 支持真彩，不开这个 Dracula 颜色会发灰
+let g:dracula_bold = 1
+let g:dracula_italic = 1
+colorscheme dracula
+```
+
+装完插件后在 vim 里执行 `:PlugInstall` 完成下载，`:PlugUpdate` 更新。
+
+<div class="callout callout-tip">
+<div class="callout-title"><i class="fas fa-lightbulb"></i> 终端配色要配套</div>
+<div class="callout-body">
+
+`termguicolors` 只保证 vim 输出真彩色，终端本身（iTerm2）也要在 *Settings → Profiles → Colors* 里选 256 色以上的真彩方案，Dracula 官方有 iTerm2 配色文件，两边统一才不违和。
+
+</div>
+</div>
+
+---
+
+### 8. 总结
 
 一张图收束全文的选择路径：
 
 | 你要做什么 | 用什么 |
 | --- | --- |
-| 交互式日常使用 | zsh + Oh My Zsh + p10k + autosuggestions/syntax-highlighting |
+| 交互式日常使用 | zsh + Oh My Zsh + spaceship + autosuggestions/syntax-highlighting |
 | 写跨机器脚本 | `#!/usr/bin/env bash`，别依赖 zsh 特性 |
 | 快速编辑文件 / 服务器上改配置 | Vim 生存集：`i` 改字、`Esc`、`:wq` / `:q!` |
 | 查本机 IP | `ipconfig getifaddr en0`（Mac）/ `ip a`（Linux）/ `curl ifconfig.me` 查公网 |
