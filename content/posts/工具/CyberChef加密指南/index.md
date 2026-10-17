@@ -6,7 +6,7 @@ tags: ["工具指南", "加密"]
 categories: ["安全工具"]
 weight: 14
 description: "- 用 GCHQ 开源的 CyberChef 在浏览器本地搭一条 AES-256-CBC 一键加解密流水线：导入 Recipe、生成强随机 Key/IV、避开三大使用铁律。"
-image: "image.png"
+image: "https://t.alcy.cc/ycy?random=7"
 ---
 
 > 💡 **防追踪宣告**
