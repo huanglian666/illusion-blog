@@ -67,7 +67,6 @@ class ImageDownloader:
         self.dry_run = dry_run
         self.overwrite = overwrite
         self.names: dict[str, str] = {}
-        self.used_names: dict[str, str] = {}
         self.completed_urls: set[str] = set()
         self.failures: list[str] = []
 
@@ -93,19 +92,10 @@ class ImageDownloader:
         return f"image-{hashlib.sha1(url.encode()).hexdigest()[:12]}.img"
 
     def filename_for(self, url: str) -> str:
+        """始终沿用图床原始文件名，不做任何改名（含同名冲突）。"""
         if url in self.names:
             return self.names[url]
-
         requested = self._filename_from_url(url)
-        source_key = f"url:{url}"
-        existing_source = self.used_names.get(requested)
-        if existing_source is not None and existing_source != source_key:
-            stem = Path(requested).stem
-            suffix = Path(requested).suffix
-            requested = (
-                f"{stem}-{hashlib.sha1(url.encode()).hexdigest()[:8]}{suffix}"
-            )
-        self.used_names[requested] = source_key
         self.names[url] = requested
         return requested
 
