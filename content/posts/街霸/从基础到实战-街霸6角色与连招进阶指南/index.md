@@ -6,7 +6,7 @@ tags: ["街霸", "实战进阶"]
 categories: ["生活与兴趣"]
 weight: 11
 description: "在掌握了《街霸6》的基础概念和核心系统后，下一步自然就是深入了解各个角色的特性，并学习如何将这些系统知识转化为实战中的连招技巧。本文将作为你之前《街霸6基础概念…"
-image: "https://t.alcy.cc/ycy?random=4"
+image: "656A9649-9AB8-47E9-AC3D-3CC2077A3150.png"
 aliases: ["/posts/从基础到实战-街霸6角色与连招进阶指南/"]
 ---
 

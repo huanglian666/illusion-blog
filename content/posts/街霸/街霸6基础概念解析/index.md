@@ -6,7 +6,7 @@ tags: ["街霸", "基础概念"]
 categories: ["生活与兴趣"]
 weight: 10
 description: "《街霸6》作为系列最新作品，在保留经典格斗元素的同时，引入了全新的斗气系统，并提供了多种操作模式以适应不同水平的玩家。以下是游戏的核心概念解析："
-image: "https://t.alcy.cc/ycy?random=15"
+image: "7366A469-6E18-44F0-B9D8-18E5433F4D71.png"
 aliases: ["/posts/街霸6基础概念解析/"]
 ---
 
