@@ -6,11 +6,13 @@
 <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
 {{- end -}}
 
-{{- /* 数学公式：三个脚本都用 defer，按书写顺序执行，保证 auto-render 能拿到 katex */ -}}
+{{- /* 数学公式：四个脚本都用 defer，按书写顺序执行，保证 auto-render 能拿到 katex */ -}}
+{{- /* copy-tex：复制公式时剪贴板还原为 LaTeX 源码（行内 $...$、块级 $$...$$），0.16+ 无需配套 CSS */ -}}
 {{- $needMath := false -}}
 {{- with .RawContent -}}{{ if findRE `\$\$|\$[^$\n]+\$|\\\(` . }}{{ $needMath = true }}{{ end }}{{ end -}}
 {{- if $needMath -}}
 <script defer src="{{ "lib/katex/katex.min.js" | relURL }}"></script>
 <script defer src="{{ "lib/katex/auto-render.min.js" | relURL }}"></script>
 <script defer src="{{ "lib/katex/katex-init.js" | relURL }}"></script>
+<script defer src="{{ "lib/katex/contrib/copy-tex.min.js" | relURL }}"></script>
 {{- end -}}
