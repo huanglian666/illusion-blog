@@ -19,9 +19,9 @@ illusion-blog/            # 站点仓库（本仓库）
 ├── layouts/              # 站点级模板覆盖（优先级高于主题同名文件）
 ├── static/
 │   ├── css/callouts.css  # 提示框样式
-│   └── lib/katex/        # 自托管 KaTeX（数学公式）
+│   └── lib/katex/        # KaTeX 0.16.22 官方资源与 copy-tex（同域托管）
 └── themes/
-    └── illusion/         # 主题（git submodule → huanglian666/illusion）
+    └── illusion/         # 主题（git submodule → aizexintong/illusion）
 ```
 
 ## 环境要求
@@ -139,9 +139,24 @@ description: "一句话摘要"
 
 ### 数学公式
 
-`hugo.toml` 已开启 `[markup.goldmark.extensions.passthrough]`，
-正文可直接写 `$行内公式$` 和 `$$块级公式$$`。KaTeX 自托管在 `static/lib/katex/`，
-**只在正文含公式的页面加载**（模板里用 `findRE` 检测）。
+`hugo.toml` 已开启官方 `params.enableMath = true` 与
+`[markup.goldmark.extensions.passthrough]`，正文可直接写 `$行内公式$`、
+`$$块级公式$$`、`\(...\)` 和 `\[...\]`。
+
+公式检测、开关与初始化由主题官方 `_layout/head/math.html` 提供。站点
+`_layout/head/math-local.html` 仅将输出中的资源地址改为同域的
+`static/lib/katex/`，并按需加载 KaTeX 官方 `copy-tex` 扩展。
+JS、CSS 和字体全部随站点部署，公式资源无需访问 jsDelivr 或 unpkg。
+
+KaTeX 固定为与主题一致的 0.16.22，保留 MIT 许可证。选中公式后复制，
+剪贴板纯文本为 `$...$` / `$$...$$` 包裹的 LaTeX 源码；粘贴到富文本编辑器时
+可使用“粘贴为纯文本”。代码块与行内代码不参与检测和渲染，单篇文章可在
+front matter 设置 `math: false` 关闭。旧的自写 `katex-init.js` 不再使用。
+
+升级主题若更换 KaTeX 版本或加载地址，构建会报错；需同步本地官方资源和
+`math-local.html` 中的版本，操作见 `static/lib/katex/README.md`。
+
+升级依据、步骤和回退方式见 [官方 LaTeX 迁移记录](docs/illusion-latex-upgrade.md)。
 
 公式里出现中文必须包 `\text{}`，否则 KaTeX 渲染失败。
 
@@ -177,14 +192,14 @@ VuePress 的 `::: note` / `::: tip` 容器语法 Hugo 不认，已转换为 HTML
 |---|---|
 | `layouts/partials/_components/page-hero.html` | 首页名言随机逻辑 |
 | `layouts/partials/_components/section-skills.html` | 技能图标改为读取数据里的 `icon` 字段 |
-| `layouts/partials/_layout/head/css.html` | KaTeX 样式与 callout 样式（按需加载） |
-| `layouts/partials/_layout/head/js.html` | KaTeX 脚本（按需加载） |
+| `layouts/partials/_layout/head.html` | 保留站点元信息、图标与社交卡片修复；调用公式适配入口，加载 callout 样式 |
+| `layouts/partials/_layout/head/math-local.html` | 沿用官方公式逻辑，仅适配同域资源和 copy-tex |
 
 ## 初始化步骤（从零搭建时参考）
 
 ```bash
 hugo new site . --force
-git submodule add https://github.com/huanglian666/illusion.git themes/illusion
+git submodule add https://github.com/aizexintong/illusion.git themes/illusion
 cp themes/illusion/hugo.toml hugo.toml
 cp -R themes/illusion/data/. data/
 cp -R themes/illusion/content/. content/

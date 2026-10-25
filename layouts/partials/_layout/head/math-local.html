@@ -1,0 +1,25 @@
+{{- /*
+  只适配官方 math partial 输出的资源地址，不复制公式检测和初始化逻辑。
+  上游基准：illusion fd5f23c，KaTeX 0.16.22。
+  升级主题若更换 KaTeX 版本/资源源站，构建会报错，需同步本地资源与下面版本。
+*/ -}}
+{{- $math := strings.TrimSpace (string (partial "_layout/head/math.html" .)) -}}
+{{- with $math -}}
+  {{- $version := "0.16.22" -}}
+  {{- $cdn := printf "https://cdn.jsdelivr.net/npm/katex@%s/dist/" $version -}}
+  {{- $backup := printf "https://unpkg.com/katex@%s/dist/" $version -}}
+  {{- if not (strings.Contains $math $cdn) -}}
+    {{- errorf "官方 KaTeX 加载方式已变化，请同步 static/lib/katex/ 与 math-local.html（当前版本 %s）" $version -}}
+  {{- end -}}
+  {{- $local := "lib/katex/" | relURL -}}
+  {{- $math = replace $math $cdn $local -}}
+  {{- $math = replace $math $backup $local -}}
+  {{- /* 同域加载不需要 CDN 回退，移除上游资源标签的 onerror。 */ -}}
+  {{- $math = replaceRE `\s+onerror="[^"]*"` "" $math -}}
+  {{- if findRE `https?://` $math -}}
+    {{- errorf "官方数学公式模板出现未适配的外部资源，请检查 math-local.html" -}}
+  {{- end -}}
+  {{ $math | safeHTML }}
+  {{- /* 官方独立扩展：选中复制后，纯文本为 $...$ / $$...$$ LaTeX 源码。 */ -}}
+  <script defer src="{{ "lib/katex/contrib/copy-tex.min.js" | relURL }}"></script>
+{{- end -}}

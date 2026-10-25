@@ -68,6 +68,8 @@ enableGitInfo = true
   enableTOC = true
   enableComments = true
   lazyLoadImages = true
+  # 官方 KaTeX 按需渲染；单篇文章可用 math: false 关闭。
+  enableMath = true
 
   # ----- SEO 与社交分享 -----
   # 控制搜索引擎优化和社交媒体分享相关的元标签生成。

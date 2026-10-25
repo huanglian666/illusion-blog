@@ -2,6 +2,7 @@
 {{- /* 全局头部模板（站点级覆盖版，优先级高于主题同名模板）。 */ -}}
 {{- /* 与主题原版的差异：og:image / twitter:image 经 _utils/post-cover.html 解析， */ -}}
 {{- /* 支持 image 写 page bundle 内文件名，并统一转成绝对地址（社交卡片要求绝对 URL）。 */ -}}
+{{- /* 数学公式沿用官方渲染，通过 math-local partial 替换为同域资源并启用复制源码。 */ -}}
 {{- /* ========== 基础元数据 ========== */ -}}
 {{- /* 镜像预览站禁止收录：GitHub Actions 构建 Pages 时会注入 HUGO_PARAMS_NOINDEX=true，
        Netlify 正式站不注入，因此只有 GitHub Pages 那份带 noindex。 */ -}}
@@ -44,8 +45,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" media="print" onload="this.onload=null;this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous"></noscript>
 
+{{- /* ========== 数学公式（官方渲染 + 同域资源 + 复制 LaTeX） ========== */ -}}
+{{ partial "_layout/head/math-local.html" . }}
+
 {{- /* ========== 主题主 CSS（SCSS 编译） ========== */ -}}
 {{ partial "_layout/head/css.html" . }}
+
+{{- /* 提示框样式：独立于数学公式功能，保留 VuePress 迁移文章的显示。 */ -}}
+<link rel="stylesheet" href="{{ "css/callouts.css" | relURL }}">
 
 {{- /* ========== Open Graph 社交分享标签 ========== */ -}}
 {{- $assets := hugo.Data.theme.assets -}}

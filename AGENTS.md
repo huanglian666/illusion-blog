@@ -54,7 +54,7 @@ You need to install Dart Sass ...
 ├── layouts/              # 站点级模板覆盖（优先级高于主题同名文件）
 ├── static/
 │   ├── css/callouts.css  # 提示框样式
-│   └── lib/katex/        # 自托管 KaTeX
+│   └── lib/katex/        # KaTeX 0.16.22 官方资源与 copy-tex（同域托管）
 └── themes/illusion/      # 主题（git submodule，勿直接改）
 ```
 
@@ -64,8 +64,8 @@ You need to install Dart Sass ...
 | --- | --- |
 | `partials/_components/page-hero.html` | 首页名言随机逻辑 |
 | `partials/_components/section-skills.html` | 技能图标改为读取数据里的 `icon` 字段 |
-| `partials/_layout/head/css.html` | KaTeX 与 callout 样式（按需加载） |
-| `partials/_layout/head/js.html` | KaTeX 脚本（按需加载） |
+| `partials/_layout/head.html` | 站点元信息、图标与社交卡片修复；调用公式适配入口并加载 callout 样式 |
+| `partials/_layout/head/math-local.html` | 沿用官方公式逻辑，将资源改为同域加载并启用 copy-tex |
 
 **要改样式或结构，优先用 `layouts/` 覆盖，不要直接改 `themes/illusion/`** —— 那是 submodule，改动不会进本站仓库。
 
@@ -91,7 +91,7 @@ You need to install Dart Sass ...
 
 ### 3. KaTeX：公式里的中文必须包 `\text{}`
 
-`hugo.toml` 已开启 `[markup.goldmark.extensions.passthrough]`，正文可直接写 `$行内$` 和 `$$块级$$`。KaTeX 自托管在 `static/lib/katex/`，**只在正文含公式的页面加载**（模板用 `findRE` 检测）。
+`hugo.toml` 已开启官方 `params.enableMath = true` 和 `[markup.goldmark.extensions.passthrough]`，正文可直接写 `$行内$`、`$$块级$$`、`\(...\)` 与 `\[...\]`。公式检测与初始化沿用主题官方 `_layout/head/math.html`，站点通过 `math-local.html` 将资源地址替换为同域 `static/lib/katex/`，并按需加载官方 copy-tex，复制公式得到 LaTeX 源码。单篇文章可用 `math: false` 关闭。站点 `head.html` 必须保留对 `math-local.html` 的调用。不要恢复旧的自写 `katex-init.js` 或复制一份公式初始化逻辑。升级主题若更换 KaTeX 版本/资源地址，适配层会报错，须同步本地官方资源与版本。迁移说明见 `docs/illusion-latex-upgrade.md`，资源更新步骤见 `static/lib/katex/README.md`。
 
 ```markdown
 ✅ $\text{风险曝光度} = 1000000 \times 0.5\%$
