@@ -208,3 +208,11 @@ cp -R themes/illusion/i18n/. i18n/
 
 > `hugo new site` 会先建出空的 `data/`，所以用 `cp -R 源/. 目标/` 而不是
 > `cp -r 源 目标`，否则会套成 `data/data/`。
+
+## Star History
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=huanglian666/illusion-blog&type=Date&logscale&theme=dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=huanglian666/illusion-blog&type=Date&logscale" />
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=huanglian666/illusion-blog&type=Date&logscale" />
+</picture>
